@@ -258,34 +258,14 @@ ga('send', 'pageview');
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <h3 id="场景改进"><a href="#场景改进" class="headerlink" title="场景改进"></a>场景改进</h3><p>效果图：</p>
+            <p><h3 id="场景改进"><a href="#场景改进" class="headerlink" title="场景改进"></a>场景改进</h3><p>效果图：</p>
 <p><img src="/images/result.png" alt="result"></p>
 <ol>
 <li><p><em>Skybox</em> ：</p>
-<p>天空盒，即天空场景，添加后可看到不同的天空场景。</p>
-<p>首先，在Unity的 <em>Assets Store</em> 中搜索 <strong>Skybox</strong> ，下载资源，主要为六张图片。之后新建Material，Inspector—-&gt;Shader—-&gt;Skybox，拖入六张图片，即制作好了一个材料。</p>
-<p>下一步为摄像机添加组件，Add Component—-&gt;Rendering—-&gt;Skybox，拖入上一部创建好的图片就OK啦。</p>
-</li>
-<li><p><em>摄像机</em> ：</p>
-<p>打开Camera的Inspector视图，可看到Projection属性：</p>
-<p><img src="/images/projection.png" alt="image"></p>
-<p>有两个选项：<em>Perspective(透视视图)</em> ，和 <em>Orthographic(正交视图)</em> 。正交视图与摄像机距离无关，实现2D投影效果，透视试图则是属于3D效果。</p>
-<p>设置两个摄像机，一个为主，采用透视视图，另一为辅，为正交视图。</p>
-<p>需注意的重点是，若要使辅助摄像机位于视图左下角，则需调整 <em>Depth</em> 和视图大小，确保辅助摄像机的深度大于主摄像机。</p>
-<p><img src="/images/depth.png" alt="depth"></p>
-</li>
-<li><p>_地形_ ：</p>
-<p>Create—-&gt;3D Object—-&gt;Terrain，即可创建地形对象：</p>
-<p><img src="/images/terrain.png" alt="terrain"></p>
-<p>可用来改造地形，种树，花草等等，不过若要种树，则需从 <em>Assets Store</em> 中下载相关资源，从中找到树木的预制，即可应用于地形中。</p>
-</li>
-<li><p>_海水_ ：</p>
-<p>Assets—-&gt;Import Package—-&gt;Environment，即可从该资源包中找到 <em>Water</em> 预制，拖入场景中，调整位置即可实现海水效果。</p>
-</li>
-</ol>
-<h3 id="牧师与魔鬼"><a href="#牧师与魔鬼" class="headerlink" title="牧师与魔鬼"></a>牧师与魔鬼</h3><p>详见<a href="https://github.com/chaunceyzhangx/3D-Game/tree/master/Homework3/Priests%20and%20Devils/Assets/Scripts" target="_blank" rel="noopener">代码</a></p>
-
+<p>天空盒，即天空场景，添加后可看到不同的天空场景。</p></p>
+            <p class="article-more-link">
+                <a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/#more">查看更多</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -295,7 +275,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://chaunceyzhangx.github.io/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" data-id="cjftu0uag0002wkupm7nix1sd" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://chaunceyzhangx.github.io/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" data-id="cjftun4a20002e8up68ifrb9y" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -423,112 +403,14 @@ ga('send', 'pageview');
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><ol>
+            <p><h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><ol>
 <li><p><em>GameObjects</em>: </p>
 <blockquote>
 <p>游戏对象，即游戏中的最基本单位，游戏中的每一个对象都是游戏对象。它相当于一个容器，本身并无太多属性，需添加各种组件，资源后才能达到设计者的所希望的游戏行为目的。</p>
-</blockquote>
-<p><em>Assets</em>: </p>
-<blockquote>
-<p>指可应用于<em>Unity</em>上的各种资源，为游戏添加各种属性，从而实现目标效果；同时，一个Unity Project的<strong>Assets</strong>文件夹指存储于本地计算机中的各种图片，预制，script等文件的总和。一个<em>Assets</em>中可以包含多个<em>GameObject</em>，<em>GameObject</em>从逻辑上讲存储于<em>Assets</em>文件夹中。</p>
-</blockquote>
-</li>
-<li><h4 id="游戏结构目录："><a href="#游戏结构目录：" class="headerlink" title="游戏结构目录："></a>游戏结构目录：</h4><p><em>Assets</em></p>
-<ul>
-<li>Scene <em>保存游戏场景</em></li>
-<li>Game <em>保存美术资源</em><ul>
-<li>Materials <em>保存材质球，用于调整颜色等</em></li>
-<li>Prefabs <em>保存预制，即游戏对象的模板，方便克隆</em></li>
-<li>Model _模型_</li>
-<li>Animations <em>保存动画文件</em></li>
-<li>Audio <em>音频文件</em></li>
-<li>Textures <em>贴图文件</em></li>
-<li>UI <em>UI文件</em></li>
-<li>Scripts <em>脚本文件</em></li>
-</ul>
-</li>
-<li>Plugins _插件_<ul>
-<li>Editor <em>保存编辑器类文件</em></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h4 id="MonoBehaviour-基本行为触发条件："><a href="#MonoBehaviour-基本行为触发条件：" class="headerlink" title="MonoBehaviour 基本行为触发条件："></a><em>MonoBehaviour</em> 基本行为触发条件：</h4><p>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// Use this for initialization</span><br><span class="line">void Start () &#123;</span><br><span class="line">    Debug.Log(&quot;init Start&quot;);</span><br><span class="line">&#125;</span><br><span class="line">// Update is called once per frame</span><br><span class="line">void Update () &#123;</span><br><span class="line">    Debug.Log(&quot;init Update&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void Awake()</span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log(&quot;init Awake&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void FixedUpdate()</span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log(&quot;init FixedUpdate&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void LateUpdate()</span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log(&quot;init LateUpdate&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void OnGUI()</span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log(&quot;init OnGUI&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void OnDisable()</span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log(&quot;init OnDisable&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void OnEnable()</span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log(&quot;init OnEnable&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Start</strong>:</p>
-<p><img src="../images/start.jpg" alt="start"></p>
-<p><strong>Per frame</strong>:</p>
-<p><img src="../images/per_frame.jpg" alt="per frame"></p>
-<p><strong>End</strong>:</p>
-<p><img src="../images/end.jpg" alt="end"></p>
-<p><strong>结论</strong>: </p>
-<ul>
-<li><em>Awake()</em>: 当脚本实例被载入时调用；</li>
-<li><em>Start()</em>: 在Update()前被调用一次；</li>
-<li><em>Update()</em>: 行为启用时，每一帧被调用一次；</li>
-<li><em>FixedUpdate()</em>: 行为启用时，每一时间片被调用；</li>
-<li><em>LateUpdate()</em>: 行为启用时，Update()之后被调用；</li>
-<li><em>OnGUI()</em>: 每帧调用多次，响应GUI事件；</li>
-<li><em>OnEnable()</em>: 当对象变为启用并激活时，调用该函数；</li>
-<li><em>OnDisable()</em>: 当对象变为禁用或不活动时，调用该函数。</li>
-</ul>
-</li>
-<li><h5 id="简单介绍GameObject-Transform-和-Component，并画出三者的UML图。"><a href="#简单介绍GameObject-Transform-和-Component，并画出三者的UML图。" class="headerlink" title="简单介绍GameObject, Transform 和 Component，并画出三者的UML图。"></a>简单介绍GameObject, Transform 和 Component，并画出三者的UML图。</h5><ul>
-<li><em>GameObject</em>: Unity 场景中所有实体的基类。</li>
-<li><em>Transform</em>: 一个对象的位置，旋转和大小。</li>
-<li><em>Component</em>: 所有附加到游戏对象的属性的基类。</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p><em>UML</em></p>
-<p><img src="/images/UML.jpg" alt="UML"></p>
-</li>
-</ul>
-<ol start="5">
-<li><h4 id="简单代码"><a href="#简单代码" class="headerlink" title="简单代码"></a>简单代码</h4><ul>
-<li><h4 id="查找对象"><a href="#查找对象" class="headerlink" title="查找对象"></a>查找对象</h4><p>新建项目，其中有 <strong>Sphere</strong> 游戏对象，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">void Start()</span><br><span class="line">    &#123;</span><br><span class="line">        Debug.Log(&quot;init start&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void FixedUpdate()</span><br><span class="line">    &#123;</span><br><span class="line">        var x = GameObject.Find(&quot;Sphere&quot;);</span><br><span class="line">        if (x.name != null)</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.Log(&quot;find the gameobject&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.Log(&quot;Not found&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="添加子对象"><a href="#添加子对象" class="headerlink" title="添加子对象"></a>添加子对象</h4><p>代码如下： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void Start()</span><br><span class="line">&#123;</span><br><span class="line">    GameObject sph = GameObject.Find(&quot;Sphere&quot;);</span><br><span class="line">    GameObject child = GameObject.CreatePrimitive(PrimitiveType.Cube);</span><br><span class="line">    child.transform.parent = sph.transform;</span><br><span class="line">    Debug.Log(&quot;Success&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="遍历对象树"><a href="#遍历对象树" class="headerlink" title="遍历对象树"></a>遍历对象树</h4><p>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GameObject obj = GameObject.Find(&quot;Sphere&quot;);</span><br><span class="line">print(&quot;父对象名称为:&quot; + obj.name + &quot; 有&quot; + obj.transform.childCount + &quot;个子对象&quot;);</span><br><span class="line">int i = 0;</span><br><span class="line">while (i &lt; obj.transform.childCount)</span><br><span class="line">&#123;</span><br><span class="line">    Transform child = obj.transform.GetChild(i);</span><br><span class="line">    print(&quot;这是第: &quot; + i + &quot; 个子对象, 名称为: &quot; + child.name);</span><br><span class="line">    i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="清除所有子对象"><a href="#清除所有子对象" class="headerlink" title="清除所有子对象"></a>清除所有子对象</h4><p>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GameObject obj = GameObject.Find(&quot;Sphere&quot;);</span><br><span class="line">print(&quot;父对象名称为:&quot; + obj.name + &quot; 有&quot; + obj.transform.childCount + &quot;个子对象&quot;);</span><br><span class="line">int i = 0;</span><br><span class="line">while (i &lt; obj.transform.childCount)</span><br><span class="line">&#123;</span><br><span class="line">    Transform child = obj.transform.GetChild(i);</span><br><span class="line">    print(&quot;这是第: &quot; + i+1 + &quot; 个子对象, 名称为: &quot; + child.name);</span><br><span class="line">    GameObject pchild = GameObject.Find(child.name);</span><br><span class="line">    GameObject.Destroy(pchild);</span><br><span class="line">    i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h4 id="预设与对象克隆"><a href="#预设与对象克隆" class="headerlink" title="预设与对象克隆"></a>预设与对象克隆</h4><ul>
-<li><p><em>Prefabs</em>: </p>
-</li>
-<li><blockquote>
-<p>预制可以存储一个带有组件和属性的 <strong>GameObject</strong> 作为模板，当想创建新的实例时，可以直接拖动模板进行创建。对预制做的修改可以应用到由该模板生成的所有实例中，也可以单独编辑每一个实例。</p>
-</blockquote>
-</li>
-<li><p>总的来说，预设和对象克隆都能生成新的对象实例，但相比较而言，由 <em>clone</em> 生成的实例，编辑原对象时，就不能应用到所有实例中。</p>
-</li>
-<li><p>预制 <em>table</em> :</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public GameObject prefab;</span><br><span class="line">void Start()</span><br><span class="line">&#123;</span><br><span class="line">    Instantiate(prefab, new Vector3(2.0F, 0, 0), Quaternion.identity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h4 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h4><ul>
-<li><p><strong>组合模式</strong>: </p>
-<p>定义：组合模式，将对象组合成树形结构以表示“部分-整体”的层次结构。组合模式使得用户对组合对象和单个对象的使用具有一致性。</p>
-<p>包含三个部分：抽象构件，叶子构件和容器构件。</p>
-<p>目的即是使得对根节点的调用方法对叶子节点同样适用，使得工作效率更高。</p>
-</li>
-<li><h5 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h5><p>​    有三种发送消息的函数，其中BroadcastMessage()由父类发送给子类，括号里面：第一个参数为回应的函数，第二个参数为传递给回应函数的参数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void Start () &#123;</span><br><span class="line">    gameObject.BroadcastMessage(&quot;MySon&quot;,&quot;I am your father&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void MySon(string ss)</span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log(&quot;I am your son&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ol>
-
+</blockquote></p>
+            <p class="article-more-link">
+                <a href="/2018/03/27/Unity 3D之Homework1/#more">查看更多</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -538,7 +420,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://chaunceyzhangx.github.io/2018/03/27/Unity 3D之Homework1/" data-id="cjftu0ua90000wkupvg18mo63" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://chaunceyzhangx.github.io/2018/03/27/Unity 3D之Homework1/" data-id="cjftun49u0000e8upf5q2cfmp" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
