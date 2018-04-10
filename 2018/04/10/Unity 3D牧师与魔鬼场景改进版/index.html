@@ -3,16 +3,22 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Tags | Duke</title>
+    <title>Unity 3D 牧师与魔鬼场景改进版 | Duke</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Tags">
-<meta property="og:url" content="http://chaunceyzhangx.github.io/tags/index.html">
+    <meta name="description" content="场景改进效果图：   Skybox ： 天空盒，即天空场景，添加后可看到不同的天空场景。 首先，在Unity的 Assets Store 中搜索 Skybox ，下载资源，主要为六张图片。之后新建Material，Inspector—-&amp;gt;Shader—-&amp;gt;Skybox，拖入六张图片，即制作好了一个材料。 下一步为摄像机添加组件，Add Component—-&amp;gt;Rendering—">
+<meta name="keywords" content="博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity 3D 牧师与魔鬼场景改进版">
+<meta property="og:url" content="http://chaunceyzhangx.github.io/2018/04/10/Unity 3D牧师与魔鬼场景改进版/index.html">
 <meta property="og:site_name" content="Duke">
+<meta property="og:description" content="场景改进效果图：   Skybox ： 天空盒，即天空场景，添加后可看到不同的天空场景。 首先，在Unity的 Assets Store 中搜索 Skybox ，下载资源，主要为六张图片。之后新建Material，Inspector—-&amp;gt;Shader—-&amp;gt;Skybox，拖入六张图片，即制作好了一个材料。 下一步为摄像机添加组件，Add Component—-&amp;gt;Rendering—">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-27T13:35:28.302Z">
+<meta property="og:image" content="https://www.hdwallpapers.net/previews/peyto-lake-canada-1152.jpg">
+<meta property="og:updated_time" content="2018-04-10T15:46:35.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tags">
+<meta name="twitter:title" content="Unity 3D 牧师与魔鬼场景改进版">
+<meta name="twitter:description" content="场景改进效果图：   Skybox ： 天空盒，即天空场景，添加后可看到不同的天空场景。 首先，在Unity的 Assets Store 中搜索 Skybox ，下载资源，主要为六张图片。之后新建Material，Inspector—-&amp;gt;Shader—-&amp;gt;Skybox，拖入六张图片，即制作好了一个材料。 下一步为摄像机添加组件，Add Component—-&amp;gt;Rendering—">
+<meta name="twitter:image" content="https://www.hdwallpapers.net/previews/peyto-lake-canada-1152.jpg">
     
 
     
@@ -206,16 +212,185 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><section class="layout-wrap">
-    <div class="layout-title">
-        <span>Tags</span>
-    </div>
-    <div class="layout-wrap-inner tag-cloud">
+            <section id="main"><article id="post-Unity 3D牧师与魔鬼场景改进版" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-            <a href="/tags/博客/" style="font-size: 20px;">博客</a>
+            
+	
+		<img src="https://www.hdwallpapers.net/previews/peyto-lake-canada-1152.jpg" class="article-banner" />
+	
+
+
+
         
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Unity 3D 牧师与魔鬼场景改进版
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/">
+            <time datetime="2018-04-10T14:17:00.000Z" itemprop="datePublished">2018-04-10</time>
+        </a>
     </div>
-</section></section>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/3D-Game/">3D Game</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/博客/">博客</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="场景改进"><a href="#场景改进" class="headerlink" title="场景改进"></a>场景改进</h3><p>效果图：</p>
+<p><img src="/images/result.png" alt="result"></p>
+<ol>
+<li><p><em>Skybox</em> ：</p>
+<p>天空盒，即天空场景，添加后可看到不同的天空场景。</p>
+<p>首先，在Unity的 <em>Assets Store</em> 中搜索 <strong>Skybox</strong> ，下载资源，主要为六张图片。之后新建Material，Inspector—-&gt;Shader—-&gt;Skybox，拖入六张图片，即制作好了一个材料。</p>
+<p>下一步为摄像机添加组件，Add Component—-&gt;Rendering—-&gt;Skybox，拖入上一部创建好的图片就OK啦。</p>
+</li>
+<li><p><em>摄像机</em> ：</p>
+<p>打开Camera的Inspector视图，可看到Projection属性：</p>
+<p><img src="/images/projection.png" alt="image"></p>
+<p>有两个选项：<em>Perspective(透视视图)</em> ，和 <em>Orthographic(正交视图)</em> 。正交视图与摄像机距离无关，实现2D投影效果，透视试图则是属于3D效果。</p>
+<p>设置两个摄像机，一个为主，采用透视视图，另一为辅，为正交视图。</p>
+<p>需注意的重点是，若要使辅助摄像机位于视图左下角，则需调整 <em>Depth</em> 和视图大小，确保辅助摄像机的深度大于主摄像机。</p>
+<p><img src="/images/depth.png" alt="depth"></p>
+</li>
+<li><p>_地形_ ：</p>
+<p>Create—-&gt;3D Object—-&gt;Terrain，即可创建地形对象：</p>
+<p><img src="/images/terrain.png" alt="terrain"></p>
+<p>可用来改造地形，种树，花草等等，不过若要种树，则需从 <em>Assets Store</em> 中下载相关资源，从中找到树木的预制，即可应用于地形中。</p>
+</li>
+<li><p>_海水_ ：</p>
+<p>Assets—-&gt;Import Package—-&gt;Environment，即可从该资源包中找到 <em>Water</em> 预制，拖入场景中，调整位置即可实现海水效果。</p>
+</li>
+</ol>
+<h3 id="牧师与魔鬼"><a href="#牧师与魔鬼" class="headerlink" title="牧师与魔鬼"></a>牧师与魔鬼</h3><p>详见<a href="https://github.com/chaunceyzhangx/3D-Game/tree/master/Homework3/Priests%20and%20Devils/Assets/Scripts" target="_blank" rel="noopener">代码</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://chaunceyzhangx.github.io/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" data-id="cjftu0uag0002wkupm7nix1sd" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/03/27/Unity 3D之Homework1/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Unity 3D 基础概念</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
             
                 
 <aside id="sidebar">
