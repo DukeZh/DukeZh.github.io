@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Unity 3D 鼠标打飞碟之改进版 | Duke</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="效果图：">
+<meta name="keywords" content="博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity 3D 鼠标打飞碟之改进版">
+<meta property="og:url" content="http://chaunceyzhangx.github.io/2018/04/24/Unity-3D-鼠标打飞碟之改进版/index.html">
+<meta property="og:site_name" content="Duke">
+<meta property="og:description" content="效果图：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.hdwallpapers.net/previews/lake-ohau-new-zealand-1106.jpg">
+<meta property="og:updated_time" content="2018-04-24T13:35:57.987Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity 3D 鼠标打飞碟之改进版">
+<meta name="twitter:description" content="效果图：">
+<meta name="twitter:image" content="https://www.hdwallpapers.net/previews/lake-ohau-new-zealand-1106.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/avatar.jpg" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-116490199-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Duke</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg" />
+            <h2 id="name">Duke</h2>
+            <h3 id="title">Software Engineering Student</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>GuangZhou, China</span>
+            <a id="follow" target="_blank" href="https://github.com/chaunceyzhangx/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                4
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                1
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/chaunceyzhangx/hexo-theme-icarus" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/css/images/wechat.png" target="_blank" title="wechat" class=tooltip>
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/css/images/qq.jpg" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Unity-3D-鼠标打飞碟之改进版" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="https://www.hdwallpapers.net/previews/lake-ohau-new-zealand-1106.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Unity 3D 鼠标打飞碟之改进版
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/">
+            <time datetime="2018-04-24T12:17:00.000Z" itemprop="datePublished">2018-04-24</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/3D-Game/">3D Game</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/博客/">博客</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h3><a id="more"></a>
+<p><img src="/images/hw5_result.png" alt="效果图"></p>
+<p>场景也可加天空盒等组件进行优化，选择很多。</p>
+<h3 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h3><ol>
+<li>按 <em>adapter模式</em> 设计图修改飞碟游戏</li>
+<li>使它同时支持物理运动与运动学（变换）运动</li>
+</ol>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><blockquote>
+<p>&emsp; 新建一个 <em>IActionManager</em> 类来管理动作，<em>CCActionManager</em> 和 <em>PhysisActionManager</em> 负责具体的运动学和物理引擎实现动作。其余 _UI_ , <em>DiskFactory</em> , <em>DiskData</em> 稍作修改即可。</p>
+</blockquote>
+<h3 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h3><ol>
+<li><p><strong>Action</strong></p>
+<p>接口，声明基类的动作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public interface IAction</span><br><span class="line">&#123;</span><br><span class="line">    void play();</span><br><span class="line">    void randomAction(int num, int level);</span><br><span class="line">    void remove(DiskData disk);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>IActionManager</strong></p>
+<p>基类，实现接口动作，有两个类的对象和一个模式选择变量，当用户选择不同的模式时，实现不同的动作，以 <em>play()</em> 为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">CCActionManager cc;</span><br><span class="line">PhysisActionManager ph;</span><br><span class="line">int mode;</span><br><span class="line">public IActionManager()</span><br><span class="line">&#123;</span><br><span class="line">    cc = new CCActionManager();</span><br><span class="line">    ph = new PhysisActionManager();</span><br><span class="line">    mode = 0;</span><br><span class="line">&#125;</span><br><span class="line">public void setMode(int i)</span><br><span class="line">&#123;</span><br><span class="line">    mode = i;</span><br><span class="line">&#125;</span><br><span class="line">public void play()</span><br><span class="line">&#123;</span><br><span class="line">    if (mode == 0)</span><br><span class="line">    &#123;</span><br><span class="line">        cc.play();</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        ph.play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>CCAction</strong></p>
+<p>运动学类，通过坐标变化来实现运动，包含一个单例类的 <em>DiskFactory</em> ，用来回收和生产飞碟：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List&lt;DiskData&gt; diskList;</span><br><span class="line">DiskFactory diskFactory;</span><br><span class="line">float gravity = 9.8f;</span><br><span class="line">Color color;</span><br><span class="line"></span><br><span class="line">public CCActionManager()</span><br><span class="line">&#123;</span><br><span class="line">    diskList = new List&lt;DiskData&gt;();</span><br><span class="line">    diskFactory = DiskFactory.getInstance();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其次，在 <em>randomAction()</em> 类中，通过不同的 <em>level</em> 来区分不同的难度，主要体现在速度不同：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public void randomAction(int ufoNum, int level)</span><br><span class="line">&#123;</span><br><span class="line">    setColor(level);</span><br><span class="line">    for (int i = 0; i &lt; ufoNum; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Vector3 position = new Vector3(0, 0, 0);//飞碟的起始位置</span><br><span class="line">        float speed = level * 10f;//飞碟速度</span><br><span class="line">        Vector3 direction = new Vector3(</span><br><span class="line">            UnityEngine.Random.Range(-10f, 10f),</span><br><span class="line">            UnityEngine.Random.Range(40f, 80f),</span><br><span class="line">            UnityEngine.Random.Range(50f, 100f));//飞碟方向</span><br><span class="line">        direction.Normalize();//单位化该方向向量，以免产生较大误差</span><br><span class="line">        Ruler ruler = new Ruler(color, position, speed, direction);//新建一个规则</span><br><span class="line">        diskList.Add(diskFactory.getDisk(ruler));//添加飞碟</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再者，在 <em>FirstSceneCtroller</em> 类中每一帧会调用 <em>play()</em> 函数，以此实现飞碟的运动和回收：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public void play()</span><br><span class="line">&#123;</span><br><span class="line">    for (int i = 0; i &lt; diskList.Count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        move(diskList[i]);//移动飞碟</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = 0; i &lt; diskList.Count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if (diskList[i].gameObject.transform.position.y &lt; 0)//若飞碟低于地面，则回收</span><br><span class="line">        &#123;</span><br><span class="line">            remove(diskList[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>PhysisActionManager</strong></p>
+<p>此类负责实现物理引擎实现UFO运动，基本思路与运动学较为相似，区别是需要给UFO加一个外力，让其自己运动而不是人为的坐标变换。</p>
+<p>我选择的方法是给UFO添加 <em>ConstantForce</em> 组件，一个恒力，以此实现运动效果，当物体被回收时，去掉这个恒力，具体实现代码在 <em>DiskData</em> 类中，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void setForce(Vector3 f)</span><br><span class="line">&#123;</span><br><span class="line">    this.gameObject.AddComponent&lt;ConstantForce&gt;().force = f;</span><br><span class="line">&#125;</span><br><span class="line">public void removeForce()</span><br><span class="line">&#123;</span><br><span class="line">    Destroy(this.gameObject.GetComponent&lt;ConstantForce&gt;());</span><br><span class="line">    Destroy(this.gameObject.GetComponent&lt;Rigidbody&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>randomAction()</em> 如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public void randomAction(int ufoNum, int level)</span><br><span class="line">&#123;</span><br><span class="line">    setColor(level);</span><br><span class="line">    for (int i = 0; i &lt; ufoNum; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Vector3 position = new Vector3(0, 0, -20f);</span><br><span class="line">        float speed = level * 10f;//飞碟速度</span><br><span class="line">        Vector3 force = new Vector3(</span><br><span class="line">            UnityEngine.Random.Range(-5f, 5f),</span><br><span class="line">            UnityEngine.Random.Range(10f, 12f),</span><br><span class="line">            speed);</span><br><span class="line">        Ruler ruler = new Ruler(color, position, 0, Vector3.zero);//新建一个规则</span><br><span class="line">        diskList.Add(diskFactory.getDisk(force,ruler));//添加飞碟</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，在 <em>play()</em> 函数中，就不需设置 <em>move</em> 函数了，只需回收飞碟即可。</p>
+</li>
+<li><p><strong>FirstSceneCtroller</strong></p>
+<p>场景控制器，负责整个场景的调度，其中加入 <em>IActionManager</em> 的对象，实现物体运动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Director director;</span><br><span class="line">IActionManager ac;</span><br><span class="line">ScoreRecorder score;</span><br><span class="line">float interval = 0;//发射飞镖的间隔时间</span><br><span class="line">int level = 0;//难度级别</span><br><span class="line">public int ufoNum = 1;//每一次发射飞碟的数目</span><br><span class="line"></span><br><span class="line">void Awake()</span><br><span class="line">&#123;</span><br><span class="line">    director = Director.getInstance();//单例类</span><br><span class="line">    director.currentSceneCtroller = this;</span><br><span class="line">    score = ScoreRecorder.getInstance();</span><br><span class="line">    LoadResource();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void LoadResource()</span><br><span class="line">&#123;</span><br><span class="line">    ac = new IActionManager();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意这里除了导演类的实例外，还有个记分员的实例，其实现与导演类相似，负责场景中的计分，实现十分简单，详见代码，在此不多加赘述。</p>
+<p>在场景中，每一帧都会调用一次物体的运动函数，实现刷新效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    interval += Time.deltaTime;</span><br><span class="line">    if (interval &gt;= 1f &amp;&amp; director.state == State.PLAYING &amp;&amp; level &gt; 0)//若间隔大于1s且处于play且已设置好level</span><br><span class="line">    &#123;</span><br><span class="line">        ac.randomAction(ufoNum, level);</span><br><span class="line">        interval = 0;//间隔重新置为0</span><br><span class="line">    &#125;</span><br><span class="line">    ac.play();</span><br><span class="line"></span><br><span class="line">    if (Input.GetButtonDown(&quot;Fire1&quot;))//开火</span><br><span class="line">    &#123;</span><br><span class="line">        Vector3 mousePosition = Input.mousePosition;</span><br><span class="line">        Camera cam = Camera.main;</span><br><span class="line">        Ray ray = cam.ScreenPointToRay(mousePosition);</span><br><span class="line">        RaycastHit hit;</span><br><span class="line">        if (Physics.Raycast(ray, out hit))</span><br><span class="line">        &#123;</span><br><span class="line">            score.record(level);//计分</span><br><span class="line">            recycle(hit.transform.gameObject.GetComponent&lt;DiskData&gt;());//回收</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>DiskFactory</strong></p>
+<p>该类负责UFO的制作与回收，即工厂类，主要有两个list，分别存已用过的飞碟和回收的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public DiskData diskPrefab;//飞碟预制</span><br><span class="line">public static DiskFactory _instance;</span><br><span class="line">List&lt;DiskData&gt; used;//已用过的</span><br><span class="line">List&lt;DiskData&gt; free;//未用</span><br></pre></td></tr></table></figure>
+<p>负责生产飞碟的函数共有两个版本，分别是对于 <em>CCActionManager</em> 和 <em>PhysisActionManager</em> 类的，差别不大，主要区别在是否添加恒力，以下以运动学的为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public DiskData getDisk(Ruler ruler)//根据参数设置飞碟</span><br><span class="line">&#123;</span><br><span class="line">    DiskData disk;</span><br><span class="line">    if (_instance.free.Count &gt; 0)//若不空，则从中找</span><br><span class="line">    &#123;</span><br><span class="line">        disk = _instance.free[0];</span><br><span class="line">        _instance.free.RemoveAt(0);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        disk = Instantiate(diskPrefab);</span><br><span class="line">    &#125;</span><br><span class="line">    disk.ruler = ruler;</span><br><span class="line">    _instance.used.Add(disk);</span><br><span class="line">    return disk;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>回收飞碟类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public void freeDisk(DiskData disk)//回收飞碟</span><br><span class="line">&#123;</span><br><span class="line">    _instance.free.Add(disk);</span><br><span class="line">    if (!_instance.used.Remove(disk))//抛出错误</span><br><span class="line">    &#123;</span><br><span class="line">        throw new System.Exception();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>DiskData</strong></p>
+<p>飞碟类，包含一个 <em>Ruler</em> 类，包含飞碟的种种规则，也可不封装成类，皆可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Ruler _ruler;</span><br><span class="line">public float x = 0, y = 0, z = 0;//用于存储该飞碟在飞行方向上的速度</span><br><span class="line">public Ruler ruler</span><br><span class="line">&#123;</span><br><span class="line">    get</span><br><span class="line">    &#123;</span><br><span class="line">        return _ruler;</span><br><span class="line">    &#125;</span><br><span class="line">    set</span><br><span class="line">    &#123;</span><br><span class="line">        _ruler = value;</span><br><span class="line">        x = value.speed * value.direction.x;</span><br><span class="line">        y = value.speed * value.direction.y;</span><br><span class="line">        z = value.speed * value.direction.z;</span><br><span class="line">        gameObject.GetComponent&lt;Renderer&gt;().material.color = value.color;</span><br><span class="line">        gameObject.transform.position = value.position;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public void setForce(Vector3 f)</span><br><span class="line">&#123;</span><br><span class="line">    this.gameObject.AddComponent&lt;ConstantForce&gt;().force = f;</span><br><span class="line">&#125;</span><br><span class="line">public void removeForce()</span><br><span class="line">&#123;</span><br><span class="line">    Destroy(this.gameObject.GetComponent&lt;ConstantForce&gt;());</span><br><span class="line">    Destroy(this.gameObject.GetComponent&lt;Rigidbody&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，在使用该类时，需将起绑定到制作好的预制上，然后删除预制，即可正常使用。此时，代码中的 <em>gameObject</em> 就指的是脚本文件绑定的对象，即预制。</p>
+<p>将 <em>UI.cs</em> ， <em>DiskFactory.cs</em> ， <em>FirstSceneController.cs</em> 拖到空对象上，拖入预制，即可运行，可自主设置每次出现的飞碟数。</p>
+</li>
+</ol>
+<p>还有 <em>BaseCode.cs</em> ， <em>UI.cs</em> 等文件就不加赘述了，详情可见Github <a href="https://github.com/chaunceyzhangx/3D-Game/tree/master/Homework5" target="_blank" rel="noopener">源码</a> 。</p>
+<p>如果有任何不懂的话，可参考第一版 <a href="https://github.com/chaunceyzhangx/3D-Game/tree/master/Homework4" target="_blank" rel="noopener">鼠标打飞碟</a> 和 <a href="http://www.iqiyi.com/w_19rxyosfy5.html" target="_blank" rel="noopener">演示视频</a> 。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://chaunceyzhangx.github.io/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" data-id="cjgdptk0800028sup4vgqbjym" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/04/11/MIPS冒泡排序/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">MIPS汇编语言实现冒泡排序</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/lake-ohau-new-zealand-1106.jpg)" alt="Unity 3D 鼠标打飞碟之改进版" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" class="title">Unity 3D 鼠标打飞碟之改进版</a></p>
+                            <p class="item-date"><time datetime="2018-04-24T12:17:00.000Z" itemprop="datePublished">2018-04-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/11/MIPS冒泡排序/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/big-green-leaf-1120.jpg)" alt="MIPS汇编语言实现冒泡排序" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/汇编语言/">汇编语言</a></p>
+                            <p class="item-title"><a href="/2018/04/11/MIPS冒泡排序/" class="title">MIPS汇编语言实现冒泡排序</a></p>
+                            <p class="item-date"><time datetime="2018-04-11T04:38:00.000Z" itemprop="datePublished">2018-04-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/peyto-lake-canada-1152.jpg)" alt="Unity 3D 牧师与魔鬼场景改进版" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" class="title">Unity 3D 牧师与魔鬼场景改进版</a></p>
+                            <p class="item-date"><time datetime="2018-04-10T14:17:00.000Z" itemprop="datePublished">2018-04-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/03/27/Unity 3D之Homework1/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/starry-night-over-corsica-986.jpg)" alt="Unity 3D 基础概念" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/03/27/Unity 3D之Homework1/" class="title">Unity 3D 基础概念</a></p>
+                            <p class="item-date"><time datetime="2018-03-27T11:54:00.000Z" itemprop="datePublished">2018-03-27</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/3D-Game/">3D Game</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/汇编语言/">汇编语言</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客/">博客</a><span class="tag-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 ZhangXing<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
