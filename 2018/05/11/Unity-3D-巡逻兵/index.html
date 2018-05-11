@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Unity 3D 巡逻兵 | Duke</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="要求： 创建一个地图和若干巡逻兵(使用动画)；  每个巡逻兵走一个3~5个边的凸多边型，位置数据是相对地址。即每次确定下一个目标位置，用自己当前位置为原点计算；">
+<meta name="keywords" content="博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity 3D 巡逻兵">
+<meta property="og:url" content="http://chaunceyzhangx.github.io/2018/05/11/Unity-3D-巡逻兵/index.html">
+<meta property="og:site_name" content="Duke">
+<meta property="og:description" content="要求： 创建一个地图和若干巡逻兵(使用动画)；  每个巡逻兵走一个3~5个边的凸多边型，位置数据是相对地址。即每次确定下一个目标位置，用自己当前位置为原点计算；">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.hdwallpapers.net/previews/hot-and-cold-651.jpg">
+<meta property="og:updated_time" content="2018-05-11T14:09:39.809Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity 3D 巡逻兵">
+<meta name="twitter:description" content="要求： 创建一个地图和若干巡逻兵(使用动画)；  每个巡逻兵走一个3~5个边的凸多边型，位置数据是相对地址。即每次确定下一个目标位置，用自己当前位置为原点计算；">
+<meta name="twitter:image" content="https://www.hdwallpapers.net/previews/hot-and-cold-651.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/avatar.jpg" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-116490199-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Duke</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg" />
+            <h2 id="name">Duke</h2>
+            <h3 id="title">Software Engineering Student</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>GuangZhou, China</span>
+            <a id="follow" target="_blank" href="https://github.com/chaunceyzhangx/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                5
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                1
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/chaunceyzhangx/hexo-theme-icarus" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/css/images/wechat.png" target="_blank" title="wechat" class=tooltip>
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/css/images/qq.jpg" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Unity-3D-巡逻兵" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="https://www.hdwallpapers.net/previews/hot-and-cold-651.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Unity 3D 巡逻兵
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/05/11/Unity-3D-巡逻兵/">
+            <time datetime="2018-05-11T12:00:00.000Z" itemprop="datePublished">2018-05-11</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/3D-Game/">3D Game</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/博客/">博客</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h3><ul>
+<li><p>创建一个地图和若干巡逻兵(使用动画)；</p>
+</li>
+<li><p>每个巡逻兵走一个3~5个边的凸多边型，位置数据是相对地址。即每次确定下一个目标位置，用自己当前位置为原点计算；</p>
+<a id="more"></a>
+</li>
+<li><p>巡逻兵碰撞到障碍物，则会自动选下一个点为目标；</p>
+</li>
+<li><p>巡逻兵在设定范围内感知到玩家，会自动追击玩家；</p>
+</li>
+<li><p>失去玩家目标后，继续巡逻；</p>
+</li>
+<li><p>计分：玩家每次甩掉一个巡逻兵计一分，与巡逻兵碰撞游戏结束；</p>
+</li>
+</ul>
+<h3 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h3><blockquote>
+<p>新建</p>
+<p>使用WSAD或者方向键控制方向，WS控制前进后退，AD控制向左右转向。空格键加速。</p>
+<p>若WSAD无法正常工作，切换键盘为大写英文或者使用方向键控制即可。</p>
+<p>游戏里共有三类对象，分别为玩家，巡逻兵，和地板。玩家我是在Asset Store里找的资源，巡逻兵为老师给的Garen，地板即是简单Cube与Plane的组合，其实还贴了墙纸，只不过摄像机看不清纹路。</p>
+</blockquote>
+<h3 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h3><p><img src="/images/hw6_result.png" alt="效果图"></p>
+<h3 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h3><ol>
+<li><p><strong>Action</strong></p>
+<p>接口，声明玩家的动作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public interface Action</span><br><span class="line">&#123;</span><br><span class="line">    void move(float x, float z);//移动玩家</span><br><span class="line">    void gameOver();//游戏结束</span><br><span class="line">    void changeScore();//加分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p><strong>Director</strong></p>
+<p>导演类，使用单例模式实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Director : System.Object</span><br><span class="line">&#123;</span><br><span class="line">    private static Director _instance;</span><br><span class="line">    private bool isEnd = false;//标志游戏是否结束</span><br><span class="line">    public SceneController currentSceneController &#123; get; set; &#125;</span><br><span class="line">    public static Director getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        if (_instance == null)</span><br><span class="line">        &#123;</span><br><span class="line">            _instance = new Director();</span><br><span class="line">        &#125;</span><br><span class="line">        return _instance;</span><br><span class="line">    &#125;</span><br><span class="line">    public bool getState()</span><br><span class="line">    &#123;</span><br><span class="line">        return _instance.isEnd;</span><br><span class="line">    &#125;</span><br><span class="line">    public void end()</span><br><span class="line">    &#123;</span><br><span class="line">        _instance.isEnd = true;</span><br><span class="line">    &#125;</span><br><span class="line">    public void reset()//重新开始游戏</span><br><span class="line">    &#123;</span><br><span class="line">        _instance.isEnd = false;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getFPS()</span><br><span class="line">    &#123;</span><br><span class="line">        return Application.targetFrameRate;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setFPS(int fps)</span><br><span class="line">    &#123;</span><br><span class="line">        Application.targetFrameRate = fps;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ScoreRecorder</strong></p>
+<p>记分员，同样采用单例模式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class ScoreRecorder:System.Object//记分员</span><br><span class="line">&#123;</span><br><span class="line">    private int score = 0;</span><br><span class="line"></span><br><span class="line">    private static ScoreRecorder instance;</span><br><span class="line">    public static ScoreRecorder getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        if(instance == null)</span><br><span class="line">        &#123;</span><br><span class="line">            instance = new ScoreRecorder();</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">    public void record()//加分</span><br><span class="line">    &#123;</span><br><span class="line">        instance.score++;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getScore()</span><br><span class="line">    &#123;</span><br><span class="line">        return instance.score;</span><br><span class="line">    &#125;</span><br><span class="line">    public void reset()</span><br><span class="line">    &#123;</span><br><span class="line">        instance.score = 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>PatrolFactory</strong></p>
+<p>工厂模式，由于此次不牵扯回收问题，所以只用写创造巡逻兵即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class PatrolFactory : MonoBehaviour &#123;</span><br><span class="line"></span><br><span class="line">    List&lt;GameObject&gt; list = new List&lt;GameObject&gt;();</span><br><span class="line">    public List&lt;GameObject&gt; getPatrolmans()</span><br><span class="line">    &#123;</span><br><span class="line">        int[] x = new int[2] &#123; -10, 5 &#125;;</span><br><span class="line">        int[] z = new int[3] &#123; -5, 0, 5 &#125;;</span><br><span class="line">        Vector3[] location = new Vector3[9];</span><br><span class="line">        int count = 0;</span><br><span class="line">        for(int i = 0;i &lt; 2; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int j = 0;j &lt; 3; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                GameObject patrolman = Instantiate(Resources.Load(&quot;Prefabs/Patrolman&quot;), new Vector3(0, 0, 7), Quaternion.identity) as GameObject;</span><br><span class="line">                location[count] = new Vector3(x[i], 0, z[j]);</span><br><span class="line">                patrolman.transform.position = location[count];</span><br><span class="line">                patrolman.GetComponent&lt;Animator&gt;().SetBool(&quot;run&quot;, true);//默认巡逻兵为移动</span><br><span class="line">                list.Add(patrolman);</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return list;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void removeRigid()//结束后调用，移除刚体，以免对象之间继续碰撞</span><br><span class="line">    &#123;</span><br><span class="line">        for(int i = 0;i &lt; list.Count; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            list[i].GetComponent&lt;Animator&gt;().SetBool(&quot;run&quot;, false);</span><br><span class="line">            list[i].GetComponent&lt;Animator&gt;().SetBool(&quot;idle&quot;, true);</span><br><span class="line">            Destroy(list[i].GetComponent&lt;Rigidbody&gt;());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>PatrolmanController</strong></p>
+<p>负责控制巡逻兵的逻辑部分，需将其绑定到巡逻兵预制上。</p>
+<p>我认为本次作业的难点有一大半出在此处，关键在于如何实现碰撞和如何处理碰撞。</p>
+<p>关于实现碰撞：</p>
+<ul>
+<li>首先，给巡逻兵，墙体和玩家添加刚体，并且不使用重力，给墙体选中 <em>is Kinematic</em> 属性，使其不会移动。这是碰撞产生的先决条件。</li>
+<li>其次，给巡逻兵，墙体和玩家添加碰撞器，设置好大小，尤其是玩家和巡逻兵，使用 <em>Capsule Collider</em> 直径以刚好包住对象为宜。</li>
+<li>最后，给巡逻兵添加触发器，即添加 <em>Box Collider</em> ，半径可设置稍微大一点，选中 <em>isTrigger</em> ，这样就可以啦。</li>
+</ul>
+<p>以下是关于碰撞及触发逻辑的处理，需要注意的是，若巡逻兵在追逐玩家的过程中，玩家跑到了墙后面，或者说玩家与巡逻兵之间仅一墙之隔，巡逻兵也需优先处理碰撞到墙的情况，即碰墙或巡逻兵的优先级高于碰玩家。</p>
+<p>这样处理的好处是不会出现隔山打牛的情况，或者巡逻兵穿墙而入，并且代码量不多。</p>
+<p>最后，当巡逻兵追逐玩家时，速度会加快，远离之后速度恢复正常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">void OnCollisionEnter(Collision collision)//碰撞</span><br><span class="line">&#123;  </span><br><span class="line">    if(collision.gameObject.tag == &quot;patrolman&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        canFollow = false;//添加变量，当与其他巡逻兵或者墙体碰撞时，优先处理</span><br><span class="line">      </span><br><span class="line">        direction = (direction + 1) % 4;</span><br><span class="line">        setNewPath();</span><br><span class="line">    &#125;</span><br><span class="line">    else if(collision.gameObject.tag == &quot;wall&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        canFollow = false;</span><br><span class="line">        direction = (direction + 1) % 4;</span><br><span class="line">        setNewPath();</span><br><span class="line">    &#125;</span><br><span class="line">    if (collision.gameObject.tag == &quot;player&quot; &amp;&amp; !dir.getState()&amp;&amp;canFollow)</span><br><span class="line">    &#123;</span><br><span class="line">        if (hit != null)</span><br><span class="line">        &#123;</span><br><span class="line">            this.GetComponent&lt;Animator&gt;().SetBool(&quot;attack&quot;, true);</span><br><span class="line">            dir.end();</span><br><span class="line">            hit();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">void OnCollisionExit(Collision collision)//退出碰撞</span><br><span class="line">&#123;</span><br><span class="line">    if(collision.gameObject.tag == &quot;patrolman&quot;|| collision.gameObject.tag == &quot;wall&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        canFollow = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void OnTriggerEnter(Collider other)//进入触发器范围</span><br><span class="line">&#123;</span><br><span class="line">    if(other.transform.tag == &quot;player&quot; &amp;&amp; !dir.getState() &amp;&amp; canFollow)</span><br><span class="line">    &#123;</span><br><span class="line">        target = other.transform.position;</span><br><span class="line">        this.transform.LookAt(other.transform.position);</span><br><span class="line">        speed *= 2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void OnTriggerExit(Collider other)//退出触发器范围</span><br><span class="line">&#123;</span><br><span class="line">    if (other.transform.tag == &quot;player&quot; &amp;&amp; !dir.getState() &amp;&amp; canFollow)</span><br><span class="line">    &#123;</span><br><span class="line">        if (scoreRecord != null)</span><br><span class="line">        &#123;</span><br><span class="line">            scoreRecord();</span><br><span class="line">        &#125;</span><br><span class="line">        setNewPath();</span><br><span class="line">        speed /= 2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void setNewPath()</span><br><span class="line">&#123;</span><br><span class="line">    System.Random ran = new System.Random();</span><br><span class="line">    length = ran.Next(5, 6);</span><br><span class="line">    x = this.transform.position.x;</span><br><span class="line">    z = this.transform.position.z;</span><br><span class="line">    if (direction == 0)</span><br><span class="line">    &#123;</span><br><span class="line">        x -= length;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (direction == 1)</span><br><span class="line">    &#123;</span><br><span class="line">        z += length;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (direction == 2)</span><br><span class="line">    &#123;</span><br><span class="line">        x += length;</span><br><span class="line">    &#125;</span><br><span class="line">    else if (direction == 3)</span><br><span class="line">    &#123;</span><br><span class="line">        z -= length;</span><br><span class="line">    &#125;</span><br><span class="line">    if(x &lt; -15)//若超出地图，则设置边缘</span><br><span class="line">    &#123;</span><br><span class="line">        x = -14;</span><br><span class="line">    &#125;</span><br><span class="line">    if(x &gt; 15)</span><br><span class="line">    &#123;</span><br><span class="line">        x = 14;</span><br><span class="line">    &#125;</span><br><span class="line">    if(z &lt; -15)</span><br><span class="line">    &#123;</span><br><span class="line">        z = -14;</span><br><span class="line">    &#125;</span><br><span class="line">    if(z &gt; 15)</span><br><span class="line">    &#123;</span><br><span class="line">        z = 14;</span><br><span class="line">    &#125;</span><br><span class="line">    target = new Vector3(x, 0, z);</span><br><span class="line">    this.transform.LookAt(target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>FirstSceneController</strong></p>
+<p>场景控制器，继承 <em>Action</em> 和 <em>SceneController</em> 接口，实现相应函数。</p>
+<p>本次游戏的另一个重点，订阅与发布模式也在此实现。</p>
+<p><em>FirstSceneController</em> 订阅了 <em>PatrolmanController</em> 发布的事件，并且做出相应的动作.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">void Enable()//订阅事件</span><br><span class="line">&#123;</span><br><span class="line">    PatrolmanController.hit += gameOver;</span><br><span class="line">    PatrolmanController.scoreRecord += changeScore;</span><br><span class="line">&#125;</span><br><span class="line">void Disable()//取消订阅</span><br><span class="line">&#123;</span><br><span class="line">    PatrolmanController.hit -= gameOver;</span><br><span class="line">    PatrolmanController.scoreRecord -= changeScore;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public void LoadResources()</span><br><span class="line">&#123;</span><br><span class="line">    director = Director.getInstance();</span><br><span class="line">    director.currentSceneController = this;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">public void move(float x, float z) &#123;</span><br><span class="line">    if (!director.getState())</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">        player.GetComponent&lt;Animator&gt;().SetBool(&quot;run&quot;, true);</span><br><span class="line">        player.transform.Translate(0, 0, z * Time.deltaTime);</span><br><span class="line">        player.transform.Rotate(0, x * rotate_speed * 3 * Time.deltaTime, 0);</span><br><span class="line">        if (player.transform.position.y != 0)//确保y为0</span><br><span class="line">        &#123;</span><br><span class="line">            player.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);</span><br><span class="line">        &#125;</span><br><span class="line">        if (player.transform.localEulerAngles.x != 0 || player.transform.localEulerAngles.z != 0)//确保只能左右旋转</span><br><span class="line">        &#123;</span><br><span class="line">            player.transform.localEulerAngles = new Vector3(0, player.transform.localEulerAngles.y, 0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void gameOver() &#123;</span><br><span class="line">    director.end();</span><br><span class="line">    player.GetComponent&lt;Animator&gt;().SetBool(&quot;run&quot;, false);</span><br><span class="line">    player.GetComponent&lt;Animator&gt;().SetBool(&quot;idle&quot;, true);</span><br><span class="line">    Destroy(player.GetComponent&lt;Rigidbody&gt;());</span><br><span class="line">    factory.removeRigid();</span><br><span class="line">    Disable();</span><br><span class="line">&#125;</span><br><span class="line">public void changeScore()</span><br><span class="line">&#123;</span><br><span class="line">    score.record();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>UI</strong></p>
+<p>实现了基本的计时器，计分和重新开始选项。</p>
+<p>由于巡逻兵追逐速度加快，并且触发器的范围并不是很大，所以容易造成玩家基本不可能逃出巡逻兵的魔爪。所以我设置了按下 <em>Space</em> 键加速的功能，方便逃出追捕范围，容易得分，可以多次在死亡的边缘试探。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    action = Director.getInstance().currentSceneController as Action;</span><br><span class="line">    float offsetX = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">    float offsetZ = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line">    action.move(offsetX * rate, offsetZ * rate);</span><br><span class="line"></span><br><span class="line">    if (Input.GetKeyDown(KeyCode.Space))</span><br><span class="line">    &#123;</span><br><span class="line">        rate *= 3;</span><br><span class="line">    &#125;</span><br><span class="line">    if (Input.GetKeyUp(KeyCode.Space))</span><br><span class="line">    &#123;</span><br><span class="line">        rate = 3;</span><br><span class="line">    &#125;</span><br><span class="line">    if (flag == 1)</span><br><span class="line">    &#123;</span><br><span class="line">        timer += Time.deltaTime;</span><br><span class="line">        if (timer &gt;= 1f)</span><br><span class="line">        &#123;</span><br><span class="line">            second++;</span><br><span class="line">            timer = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        if (second &gt;= 60)</span><br><span class="line">        &#123;</span><br><span class="line">            minute++;</span><br><span class="line">            second = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        if (minute &gt;= 60)</span><br><span class="line">        &#123;</span><br><span class="line">            minute = 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void OnGUI()</span><br><span class="line">&#123;</span><br><span class="line">    str = string.Format(&quot;&#123;0:00&#125;:&#123;1:00&#125;&quot;, minute, second);//计时器</span><br><span class="line">    str = &quot;Time: &quot; + str;</span><br><span class="line">    GUIStyle style = new GUIStyle();</span><br><span class="line">    style.fontSize = 20;</span><br><span class="line">    GUI.Label(new Rect(520, 0, 100, 200), str, style);</span><br><span class="line"></span><br><span class="line">    int score = s.getScore();//记分</span><br><span class="line">    string ss = &quot;Score: &quot; + score.ToString();</span><br><span class="line">    GUI.Label(new Rect(0, 0, 100, 200), ss, style);</span><br><span class="line"></span><br><span class="line">    if (director.getState() == true)</span><br><span class="line">    &#123;</span><br><span class="line">        flag = 0;</span><br><span class="line">        if (GUI.Button(new Rect(280, 130, 100, 50), &quot;RESET&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            flag = 1;</span><br><span class="line">            timer = 0;</span><br><span class="line">            minute = 0;</span><br><span class="line">            second = 0;</span><br><span class="line">            director.reset();</span><br><span class="line">            s.reset();</span><br><span class="line">            SceneManager.LoadScene(&quot;Scene&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>本次作业还是有些难的，不过收获也颇多，除了订阅与发布模式，动画系统、碰撞器、触发器等部件的特性也有了很多了解。上课跟着老师做，跟自己独立完成还是有很大区别的，还是要勤动手啊。</p>
+<p>就是过程有点痛苦。</p>
+<p>查看代码<a href="https://github.com/chaunceyzhangx/3D-Game/tree/master/Homework6" target="_blank" rel="noopener">点这里</a> ，附上<a href="http://www.iqiyi.com/w_19rxtorncp.html" target="_blank" rel="noopener">演示视频</a>。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://chaunceyzhangx.github.io/2018/05/11/Unity-3D-巡逻兵/" data-id="cjh208acz0001kgupj2vkqvan" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Unity 3D 鼠标打飞碟之改进版</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/11/Unity-3D-巡逻兵/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/hot-and-cold-651.jpg)" alt="Unity 3D 巡逻兵" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/05/11/Unity-3D-巡逻兵/" class="title">Unity 3D 巡逻兵</a></p>
+                            <p class="item-date"><time datetime="2018-05-11T12:00:00.000Z" itemprop="datePublished">2018-05-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/lake-ohau-new-zealand-1106.jpg)" alt="Unity 3D 鼠标打飞碟之改进版" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" class="title">Unity 3D 鼠标打飞碟之改进版</a></p>
+                            <p class="item-date"><time datetime="2018-04-24T12:17:00.000Z" itemprop="datePublished">2018-04-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/11/MIPS冒泡排序/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/big-green-leaf-1120.jpg)" alt="MIPS汇编语言实现冒泡排序" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/汇编语言/">汇编语言</a></p>
+                            <p class="item-title"><a href="/2018/04/11/MIPS冒泡排序/" class="title">MIPS汇编语言实现冒泡排序</a></p>
+                            <p class="item-date"><time datetime="2018-04-11T04:38:00.000Z" itemprop="datePublished">2018-04-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/peyto-lake-canada-1152.jpg)" alt="Unity 3D 牧师与魔鬼场景改进版" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" class="title">Unity 3D 牧师与魔鬼场景改进版</a></p>
+                            <p class="item-date"><time datetime="2018-04-10T14:17:00.000Z" itemprop="datePublished">2018-04-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/03/27/Unity 3D之Homework1/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/starry-night-over-corsica-986.jpg)" alt="Unity 3D 基础概念" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/03/27/Unity 3D之Homework1/" class="title">Unity 3D 基础概念</a></p>
+                            <p class="item-date"><time datetime="2018-03-27T11:54:00.000Z" itemprop="datePublished">2018-03-27</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/3D-Game/">3D Game</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/汇编语言/">汇编语言</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客/">博客</a><span class="tag-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 ZhangXing<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
