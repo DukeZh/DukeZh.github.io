@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Unity 3D 血条制作 | Duke</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="要求： 分别使用 IMGUI 和 UGUI 实现 使用 UGUI，血条是游戏对象的一个子元素，任何时候需要面对主摄像机 分析两种实现的优缺点 给出预制的使用方法">
+<meta name="keywords" content="博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity 3D 血条制作">
+<meta property="og:url" content="http://chaunceyzhangx.github.io/2018/06/05/Unity-3D-血条制作/index.html">
+<meta property="og:site_name" content="Duke">
+<meta property="og:description" content="要求： 分别使用 IMGUI 和 UGUI 实现 使用 UGUI，血条是游戏对象的一个子元素，任何时候需要面对主摄像机 分析两种实现的优缺点 给出预制的使用方法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.hdwallpapers.net/previews/starry-night-over-cape-cod-1126.jpg">
+<meta property="og:updated_time" content="2018-06-05T08:53:13.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity 3D 血条制作">
+<meta name="twitter:description" content="要求： 分别使用 IMGUI 和 UGUI 实现 使用 UGUI，血条是游戏对象的一个子元素，任何时候需要面对主摄像机 分析两种实现的优缺点 给出预制的使用方法">
+<meta name="twitter:image" content="https://www.hdwallpapers.net/previews/starry-night-over-cape-cod-1126.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/avatar.jpg" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-116490199-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Duke</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg" />
+            <h2 id="name">Duke</h2>
+            <h3 id="title">Software Engineering Student</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>GuangZhou, China</span>
+            <a id="follow" target="_blank" href="https://github.com/chaunceyzhangx/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                6
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                1
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/chaunceyzhangx/hexo-theme-icarus" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/css/images/wechat.png" target="_blank" title="wechat" class=tooltip>
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/css/images/qq.jpg" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Unity-3D-血条制作" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="https://www.hdwallpapers.net/previews/starry-night-over-cape-cod-1126.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Unity 3D 血条制作
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/06/05/Unity-3D-血条制作/">
+            <time datetime="2018-06-05T03:09:46.852Z" itemprop="datePublished">2018-06-05</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/3D-Game/">3D Game</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/博客/">博客</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h3><ul>
+<li>分别使用 IMGUI 和 UGUI 实现</li>
+<li>使用 UGUI，血条是游戏对象的一个子元素，任何时候需要面对主摄像机</li>
+<li>分析两种实现的优缺点</li>
+<li>给出预制的使用方法</li>
+</ul>
+<a id="more"></a>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>​    由于之前一直有用IMGUI，还算熟悉，想法就是使用一个类似长方形的容器，实现血条效果。至于UGUI，按照老师上课所讲的，使用Slider，通过调整，实现。</p>
+<h3 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h3><h4 id="IMGUI"><a href="#IMGUI" class="headerlink" title="IMGUI"></a>IMGUI</h4><p>​    新建一个Cube，作为游戏对象，或者空对象也可以，重点不在此处(不过还是太随便了些。。)。</p>
+<p>​    新建脚本 <em>IMGUI.cs</em> ，初步想法：设置一根血条，两个按键，一个为攻击，即掉血，另一个为大治疗术，一下全加满。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class IMGUI : MonoBehaviour &#123;</span><br><span class="line">    private Rect blood;//血条</span><br><span class="line">    private float value;//代表当前血量</span><br><span class="line">	// Use this for initialization</span><br><span class="line">	void Start () &#123;</span><br><span class="line">        value = 100f;     </span><br><span class="line">        blood = new Rect(250, 100, 150, 20);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// Update is called once per frame</span><br><span class="line">	void OnGUI()</span><br><span class="line">    &#123;</span><br><span class="line">        if (GUI.Button(new Rect(20, 20, 80, 40), &quot;Attack&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            if (value &gt;= 10)</span><br><span class="line">            &#123;</span><br><span class="line">                value -= 10;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                value = 0;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (GUI.Button(new Rect(20, 130, 80, 40), &quot;Revive&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            value = 100;</span><br><span class="line">        &#125;</span><br><span class="line">        GUI.HorizontalScrollbar(blood, 0.0f, value, 0.0f, 100f);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    本次难点还是在于如何实现血条的效果，查阅资料之后，采用了 <em>GUI.HorizontalScrollbar()</em> ， 即滚动条，具体参数如下：</p>
+<blockquote>
+<p>public static float HorizontalScrollbar(<a href="https://docs.unity3d.com/ScriptReference/Rect.html" target="_blank" rel="noopener">Rect</a> position, float value, float size, float leftValue, float rightValue);</p>
+</blockquote>
+<p>​    其中第一个参数是一个长方形，第二个参数官方的说明是：</p>
+<blockquote>
+<p>The position between min and max.</p>
+</blockquote>
+<p>​    我试了多次之后，发现这个是控制血条缩减的方向的，例如现在是0，就是从右往左缩减，如果是最大值100，则是从左往右缩减。若是一个中间值，则先从左往右，然后缩减到相应比例时，再从右往左缩减。</p>
+<p>​    第三个是当前的血量，即一个区间内的值；第四和第五分别是区间的最小值和最大值。其实最后也可以加个 <em>GUIStyle</em> 的参数来着，我添加了之后不知怎么的总是显示不出来，然后还报了一堆警告，就没用了。</p>
+<p><img src="/images/health_IMGUI.png" alt="IMGUI效果图"></p>
+<h4 id="使用说明：预制已给出，为Prefabs-IMGUI，将其拖入场景中，点击运行即可。初始血量为100，点击Attack掉10点血，点击Revive复活，即血量全满。"><a href="#使用说明：预制已给出，为Prefabs-IMGUI，将其拖入场景中，点击运行即可。初始血量为100，点击Attack掉10点血，点击Revive复活，即血量全满。" class="headerlink" title="使用说明：预制已给出，为Prefabs/IMGUI，将其拖入场景中，点击运行即可。初始血量为100，点击Attack掉10点血，点击Revive复活，即血量全满。"></a>使用说明：预制已给出，为Prefabs/IMGUI，将其拖入场景中，点击运行即可。初始血量为100，点击Attack掉10点血，点击Revive复活，即血量全满。</h4><h4 id="UGUI"><a href="#UGUI" class="headerlink" title="UGUI"></a>UGUI</h4><p>​    与 <strong>IMGUI</strong> 类似的是，首先新建一个Cube(看心情，是个对象就行)，在Cube下新建子对象Canvas，之后再在Canvas下新建一个Slider，两个Button，控制攻击和复活，具体目录结构如下：</p>
+<p><img src="/images/health_UGUI_menu.png" alt="层次结构"></p>
+<p>​    其中，UGUI是Cube的名称，Slider目录下原本还有 <em>Handle Slide Area</em> ，此处不用，删去，否则会遮挡血条效果。</p>
+<p>​    设置Slider的 <em>Rect Transform</em> 中的 <em>Width</em> 和 <em>Height</em> 分别为80和20，为血条的大小，然后设置 <em>Scale</em> 下的X和Y分别为0.02，0.01，控制血条在X和Y轴上的比例因子，可个性化设置。</p>
+<p>​    其次设置血条颜色，Slider–&gt;Fill Area–&gt;Fill–&gt;Image–&gt;Color，挑选自己喜欢的颜色即可。</p>
+<p>​    最后回到Slider的Inspector界面，如下设置：</p>
+<p><img src="/images/health_UGUI_slider.png" alt="设置"></p>
+<p>​    其中 <em>Direction</em> 是血条缩减方向， <em>Min Value</em> 是血量最小值， <em>Max Value</em> 是最大值， <em>Value</em> 是当前血量，通过拖动滑条可看到血量变化效果。此处需要说明的是，我刚开始设置的时候发现血量最多也到不了最右边，即看起来永远也不会满的样子，之后通过设置 <em>Fill Area</em> –&gt; <em>Fill</em> 中的Rect Transform属性解决，将其中所有数值设为0即可。其实也可以通过不断更改数值，发现各个属性的作用的，这个可以自己摸索，也是蛮有意思的。</p>
+<p>​    接下来开始写代码，要求中有要血条时刻面对摄像机，所以代码如下，将其绑定到Canvas下即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class Follow : MonoBehaviour &#123;</span><br><span class="line"></span><br><span class="line">	// Use this for initialization</span><br><span class="line">	void Start () &#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// Update is called once per frame</span><br><span class="line">	void Update () &#123;</span><br><span class="line">        this.transform.rotation = Camera.main.transform.rotation;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    然后设置 <em>Canvas–&gt;Render Mode–&gt;World Space</em> ， 然后将主摄像机拖入下面的 <em>Event Camera</em> 。即是使UI采用世界模式。</p>
+<p>​    由于采用世界模式，所以继续编写血条坐标变化的代码，将其绑定到Slider下即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line"></span><br><span class="line">public class UGUI : MonoBehaviour &#123;</span><br><span class="line">    private RectTransform rectTransform;</span><br><span class="line">    // Use this for initialization</span><br><span class="line">    void Start () &#123;</span><br><span class="line">        rectTransform = this.GetComponent&lt;RectTransform&gt;();;</span><br><span class="line">        Camera.main.transform.position = new Vector3(0, 0, -5);</span><br><span class="line">        Vector3 postion = Camera.main.ScreenToWorldPoint(this.transform.position);</span><br><span class="line">        rectTransform.position = postion + new Vector3(0, 1, 5);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    之后继续设置两个Button，大小和位置通过调整，适应即可，颜色之类也可自定义，具体以攻击按钮为例：</p>
+<p><img src="/images/health_UGUI_Button.png" alt="按钮属性"></p>
+<p>​    最后就是脚本的书写了，Button有个 <em>On Click</em> 属性，通过查询官方手册后得知了用法，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line"></span><br><span class="line">public class Attack : MonoBehaviour &#123;</span><br><span class="line">    public Slider slider;</span><br><span class="line">    // Use this for initialization</span><br><span class="line">    void Start()</span><br><span class="line">    &#123;</span><br><span class="line">        Button btn = this.GetComponent&lt;Button&gt;();</span><br><span class="line">        btn.onClick.AddListener(Click);</span><br><span class="line">    &#125;</span><br><span class="line">    public void Click()</span><br><span class="line">    &#123;</span><br><span class="line">        if(slider.value &gt;= 10)</span><br><span class="line">        &#123;</span><br><span class="line">            slider.value -= 10;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            slider.value = 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line"></span><br><span class="line">public class Revive : MonoBehaviour &#123;</span><br><span class="line">    public Slider slider;</span><br><span class="line">    // Use this for initialization</span><br><span class="line">    void Start () &#123;</span><br><span class="line">        Button btn = this.GetComponent&lt;Button&gt;();</span><br><span class="line">        btn.onClick.AddListener(Click);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void Click()</span><br><span class="line">    &#123;</span><br><span class="line">        slider.value = 100;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    将这两个脚本绑定到相应的Button上，此处的难点是刚开始时无法获得Slider的value，之后查找官方手册和资料，找到了这种解决方法，提供一个公有的接口，将其在外部设置为血条Slider属性即可，然后就解决了。</p>
+<h4 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h4><p><img src="/images/health_UGUI.png" alt="UGUI效果图"></p>
+<h4 id="使用说明：左边为攻击按钮，右边为复活按钮，操作规则与IMGUI相同。预制为Prefabs-UGUI，拖入场景之中即可使用。"><a href="#使用说明：左边为攻击按钮，右边为复活按钮，操作规则与IMGUI相同。预制为Prefabs-UGUI，拖入场景之中即可使用。" class="headerlink" title="使用说明：左边为攻击按钮，右边为复活按钮，操作规则与IMGUI相同。预制为Prefabs/UGUI，拖入场景之中即可使用。"></a>使用说明：左边为攻击按钮，右边为复活按钮，操作规则与IMGUI相同。预制为Prefabs/UGUI，拖入场景之中即可使用。</h4><h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h3><h4 id="IMGUI：制作步骤较为简单，但是也很简陋，效果明显不如UGUI-也有可能是我水平有限-。其次，血条位置不能够随着对象移动而变化，因为长方形的坐标是相对于屏幕的，所以不会变化。"><a href="#IMGUI：制作步骤较为简单，但是也很简陋，效果明显不如UGUI-也有可能是我水平有限-。其次，血条位置不能够随着对象移动而变化，因为长方形的坐标是相对于屏幕的，所以不会变化。" class="headerlink" title="IMGUI：制作步骤较为简单，但是也很简陋，效果明显不如UGUI(也有可能是我水平有限)。其次，血条位置不能够随着对象移动而变化，因为长方形的坐标是相对于屏幕的，所以不会变化。"></a>IMGUI：制作步骤较为简单，但是也很简陋，效果明显不如UGUI(也有可能是我水平有限)。其次，血条位置不能够随着对象移动而变化，因为长方形的坐标是相对于屏幕的，所以不会变化。</h4><h4 id="UGUI：效果明显要好很多，血条也可以随着物体移动。但是制作较为复杂，容易出错，需要仔细阅读官方文档。由于上课老师课件讲过UGUI血条在World-Space下的弊端，就是血条会暴露对象的位置，我本来是打算采用ScreenSpace-Overlay模式的，然后最后没有做出来，只能先这样子，之后再钻研下吧，对UI还是了解不够。"><a href="#UGUI：效果明显要好很多，血条也可以随着物体移动。但是制作较为复杂，容易出错，需要仔细阅读官方文档。由于上课老师课件讲过UGUI血条在World-Space下的弊端，就是血条会暴露对象的位置，我本来是打算采用ScreenSpace-Overlay模式的，然后最后没有做出来，只能先这样子，之后再钻研下吧，对UI还是了解不够。" class="headerlink" title="UGUI：效果明显要好很多，血条也可以随着物体移动。但是制作较为复杂，容易出错，需要仔细阅读官方文档。由于上课老师课件讲过UGUI血条在World Space下的弊端，就是血条会暴露对象的位置，我本来是打算采用ScreenSpace-Overlay模式的，然后最后没有做出来，只能先这样子，之后再钻研下吧，对UI还是了解不够。"></a>UGUI：效果明显要好很多，血条也可以随着物体移动。但是制作较为复杂，容易出错，需要仔细阅读官方文档。由于上课老师课件讲过UGUI血条在World Space下的弊端，就是血条会暴露对象的位置，我本来是打算采用ScreenSpace-Overlay模式的，然后最后没有做出来，只能先这样子，之后再钻研下吧，对UI还是了解不够。</h4><p>资源传送门：<a href="https://github.com/chaunceyzhangx/3D-Game/tree/master/Homework8" target="_blank" rel="noopener">点这里</a></p>
+<p>演示视频：<a href="http://www.iqiyi.com/w_19rzbljlll.html" target="_blank" rel="noopener">看看吧</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://chaunceyzhangx.github.io/2018/06/05/Unity-3D-血条制作/" data-id="cji1g6qi70005ycuppr7dyl9z" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/05/11/Unity-3D-巡逻兵/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Unity 3D 巡逻兵</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/05/Unity-3D-血条制作/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/starry-night-over-cape-cod-1126.jpg)" alt="Unity 3D 血条制作" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/06/05/Unity-3D-血条制作/" class="title">Unity 3D 血条制作</a></p>
+                            <p class="item-date"><time datetime="2018-06-05T03:09:46.852Z" itemprop="datePublished">2018-06-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/11/Unity-3D-巡逻兵/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/hot-and-cold-651.jpg)" alt="Unity 3D 巡逻兵" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/05/11/Unity-3D-巡逻兵/" class="title">Unity 3D 巡逻兵</a></p>
+                            <p class="item-date"><time datetime="2018-05-11T12:00:00.000Z" itemprop="datePublished">2018-05-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/lake-ohau-new-zealand-1106.jpg)" alt="Unity 3D 鼠标打飞碟之改进版" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" class="title">Unity 3D 鼠标打飞碟之改进版</a></p>
+                            <p class="item-date"><time datetime="2018-04-24T12:17:00.000Z" itemprop="datePublished">2018-04-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/11/MIPS冒泡排序/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/big-green-leaf-1120.jpg)" alt="MIPS汇编语言实现冒泡排序" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/汇编语言/">汇编语言</a></p>
+                            <p class="item-title"><a href="/2018/04/11/MIPS冒泡排序/" class="title">MIPS汇编语言实现冒泡排序</a></p>
+                            <p class="item-date"><time datetime="2018-04-11T04:38:00.000Z" itemprop="datePublished">2018-04-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/peyto-lake-canada-1152.jpg)" alt="Unity 3D 牧师与魔鬼场景改进版" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" class="title">Unity 3D 牧师与魔鬼场景改进版</a></p>
+                            <p class="item-date"><time datetime="2018-04-10T14:17:00.000Z" itemprop="datePublished">2018-04-10</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/3D-Game/">3D Game</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/汇编语言/">汇编语言</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客/">博客</a><span class="tag-list-count">6</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 ZhangXing<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
