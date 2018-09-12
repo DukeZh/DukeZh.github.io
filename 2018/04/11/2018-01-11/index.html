@@ -3,19 +3,22 @@
 <head>
     <meta charset="utf-8">
     
-    <title>About | Duke</title>
+    <title>MIPS汇编语言实现冒泡排序 | Duke</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Email: dukestar@qq.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="About">
-<meta property="og:url" content="http://chaunceyzhangx.github.io/about/index.html">
+    <meta name="description" content="题目要求：键盘输入10个无序无符号整数，实现降序输出。">
+<meta name="keywords" content="博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIPS汇编语言实现冒泡排序">
+<meta property="og:url" content="http://chaunceyzhangx.github.io/2018/04/11/2018-01-11/index.html">
 <meta property="og:site_name" content="Duke">
-<meta property="og:description" content="Email: dukestar@qq.com">
+<meta property="og:description" content="题目要求：键盘输入10个无序无符号整数，实现降序输出。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-28T04:52:15.591Z">
+<meta property="og:image" content="https://www.hdwallpapers.net/previews/big-green-leaf-1120.jpg">
+<meta property="og:updated_time" content="2018-04-11T05:17:21.599Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="About">
-<meta name="twitter:description" content="Email: dukestar@qq.com">
+<meta name="twitter:title" content="MIPS汇编语言实现冒泡排序">
+<meta name="twitter:description" content="题目要求：键盘输入10个无序无符号整数，实现降序输出。">
+<meta name="twitter:image" content="https://www.hdwallpapers.net/previews/big-green-leaf-1120.jpg">
     
 
     
@@ -209,18 +212,50 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-2018-01-11" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
+        
+            
+	
+		<img src="https://www.hdwallpapers.net/previews/big-green-leaf-1120.jpg" class="article-banner" />
+	
+
+
+
         
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-            About
+            MIPS汇编语言实现冒泡排序
         </h1>
     
 
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/04/11/2018-01-11/">
+            <time datetime="2018-04-11T04:38:00.000Z" itemprop="datePublished">2018-04-11</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/汇编语言/">汇编语言</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/博客/">博客</a>
+    </div>
+
+                    </div>
                 
             </header>
         
@@ -228,7 +263,24 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>Email: <a href="mailto:dukestar@qq.com" target="_blank" rel="noopener">dukestar@qq.com</a></p>
+            <h4 id="题目要求：键盘输入10个无序无符号整数，实现降序输出。"><a href="#题目要求：键盘输入10个无序无符号整数，实现降序输出。" class="headerlink" title="题目要求：键盘输入10个无序无符号整数，实现降序输出。"></a>题目要求：键盘输入10个无序无符号整数，实现降序输出。</h4><a id="more"></a>
+<h4 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h4><blockquote>
+<p>&emsp; &emsp; 首先，写出对应的C++代码，实现排序功能，为方便MIPS指令运行，我将冒泡排序做了一点改进：每次二重循环下标都从0开始，这样就无需记录当前数组移动的下标位置，方便许多。 </p>
+<p>&emsp; &emsp; 其次，MIPS设计的重点我认为在循环的跳转上，如何递增变量，如何跳转到相应的循环需要仔细设计。我将数组的重置，j = 0放在第一重循环中，然后进行判断i&lt;10，若真，则进入第二重循环，二重循环中检测到j == 9时进入相应的模块将i++，再跳转到第一重循环中，如此即可实现排序所需的两重循环的切换。 </p>
+<p>&emsp; &emsp; 最后输出前需将对应的计数器i归零，循环输出结果和间隔符，就可以得到结果。</p>
+</blockquote>
+<h4 id="程序流程图："><a href="#程序流程图：" class="headerlink" title="程序流程图："></a>程序流程图：</h4><p><img src="/images/MIPS_bubbleSort.png" alt="流程图"></p>
+<h4 id="运行结果："><a href="#运行结果：" class="headerlink" title="运行结果："></a>运行结果：</h4><p><img src="/images/MIPS_result.png" alt="结果"></p>
+<h4 id="MIPS："><a href="#MIPS：" class="headerlink" title="MIPS："></a>MIPS：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">.align 2</span><br><span class="line">  array:   .space  40   # 10 integers</span><br><span class="line">  seperate: .asciiz &quot; &quot;</span><br><span class="line">  inputMessage: .asciiz &quot;Please enter 10 numbers:\n&quot;</span><br><span class="line"></span><br><span class="line">.text</span><br><span class="line">.globl main</span><br><span class="line">main:</span><br><span class="line">  la $a0, inputMessage</span><br><span class="line">  li $v0, 4</span><br><span class="line">  syscall</span><br><span class="line">  la $t0, array</span><br><span class="line">  addi $t1, $zero, 0  # i</span><br><span class="line">  addi $t2, $zero, 0  # j</span><br><span class="line">  add $t5, $t0, $zero  # head of pointers</span><br><span class="line">  addi $t6, $zero, 10  # constant</span><br><span class="line">  addi $t7, $zero, 9</span><br><span class="line"></span><br><span class="line">addi $t1, $zero, 0</span><br><span class="line"></span><br><span class="line">inputNumber:</span><br><span class="line">  li $v0, 5</span><br><span class="line">  syscall</span><br><span class="line">  sw $v0, 0($t0)</span><br><span class="line">  addi $t0, $t0, 4 # array++</span><br><span class="line">  addi $t1, $t1, 1 # i++</span><br><span class="line">  blt $t1, $t6, inputNumber # i&lt;10</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">addi $t1, $zero, 0  # i = 0</span><br><span class="line"></span><br><span class="line">firstLoop:</span><br><span class="line">  la $t5, array # t5 = array[0]</span><br><span class="line">  addi $t2, $zero, 0  # j = 0</span><br><span class="line">  blt $t1, $t6, secondLoop  # i &lt; 10, secondLoop</span><br><span class="line">  </span><br><span class="line">  beq $t1, $t6, init  # i == 10, init</span><br><span class="line">  </span><br><span class="line">secondLoop:</span><br><span class="line">  beq $t2, $t7, nextLoop  # j == 9, nextLoop</span><br><span class="line">  lw $t3, 0($t5)</span><br><span class="line">  lw $t4, 4($t5)</span><br><span class="line">  blt $t3, $t4, swap</span><br><span class="line">  addi $t5, $t5, 4</span><br><span class="line">  addi $t2, $t2, 1 # j++</span><br><span class="line">  j secondLoop</span><br><span class="line"></span><br><span class="line">nextLoop:</span><br><span class="line">  addi $t1, $t1, 1  # i++</span><br><span class="line">  j firstLoop</span><br><span class="line"></span><br><span class="line">swap:</span><br><span class="line">  sw $t3, 4($t5)</span><br><span class="line">  sw $t4, 0($t5)</span><br><span class="line">  addi $t5, $t5, 4</span><br><span class="line">  addi $t2, $t2, 1 # j++</span><br><span class="line">  j secondLoop</span><br><span class="line"></span><br><span class="line">init:</span><br><span class="line">  la $t0, array  # t0 = array[0]</span><br><span class="line">  addi $t1, $zero, 0  # i = 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printResult:</span><br><span class="line">  lw $a0, 0($t0)</span><br><span class="line">  li $v0, 1</span><br><span class="line">  syscall</span><br><span class="line"></span><br><span class="line">  la $a0, seperate</span><br><span class="line">  li $v0, 4</span><br><span class="line">  syscall</span><br><span class="line">  addi $t0, $t0, 4</span><br><span class="line">  addi $t1, $t1, 1</span><br><span class="line">  blt $t1, $t6, printResult</span><br><span class="line"></span><br><span class="line">li $v0, 10</span><br><span class="line">syscall</span><br></pre></td></tr></table></figure>
+<h4 id="C-："><a href="#C-：" class="headerlink" title="C++："></a>C++：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	int arr[10] = &#123;0&#125;;</span><br><span class="line">	int i = 0, j = 0, k = 0, temp = 0;</span><br><span class="line">	for(i = 0;i &lt; 10;i++)&#123;</span><br><span class="line">		cin &gt;&gt; arr[i];</span><br><span class="line">	&#125;</span><br><span class="line">	for(i = 0;i &lt; 10;i++)&#123;</span><br><span class="line">		for(j = 0;j &lt; 9;j++)&#123;</span><br><span class="line">			if(arr[j] &lt; arr[j+1])&#123;</span><br><span class="line">				temp = arr[j];</span><br><span class="line">				arr[j] = arr[j+1];</span><br><span class="line">				arr[j+1] = temp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for(int t = 0;t &lt; 10;t++)&#123;</span><br><span class="line">		cout &lt;&lt; arr[t] &lt;&lt; &quot; &quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="补充说明："><a href="#补充说明：" class="headerlink" title="补充说明："></a>补充说明：</h4><p>若要实现自己定义输入的数字数，则只需在 <em>.main</em> 下添加一句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">li $v0, 5</span><br><span class="line">syscall</span><br><span class="line">sw $v0, 0($t6)</span><br></pre></td></tr></table></figure>
+<p>同时， t7  的值也要改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">addi $t7 $t6 -1</span><br></pre></td></tr></table></figure>
+<p><em>array</em> 的size也要足够大。</p>
+<p>同理，若要实现 <strong>升序</strong> ，只需将 <em>secondLoop</em> 中的第四句改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blt $t4 $t3 swap</span><br></pre></td></tr></table></figure>
+<p>即可实现效果啦。</p>
 
         
         </div>
@@ -239,7 +291,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://chaunceyzhangx.github.io/about/index.html" data-id="cjlz1vkmu0000ngup1s4wvf92" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://chaunceyzhangx.github.io/2018/04/11/2018-01-11/" data-id="cjlz1vko50007ngupads26mp7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -312,6 +364,25 @@ ga('send', 'pageview');
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Unity 3D 鼠标打飞碟之改进版
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Unity 3D 牧师与魔鬼场景改进版</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
