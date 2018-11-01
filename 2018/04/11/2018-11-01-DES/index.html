@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>DES算法程序设计及实现 | Duke</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="算法概述DES算法共有两种功能：加密和解密。其中加密需要输入16位十六进制数的明文和密钥，解密需要输入密文和密钥。DES算法的要求输入是64位二进制数，为了方便起见，我将其改为输入16位十六进制数，转换在程序中实现。 加密过程：C=IP-1∙W∙T16∙T15∙…∙T1∙IP(M)，其中C为结果密文，M为输入明文，根据输入密钥Key进行中间的十六轮T迭代变换。 解密过程：M=IP-1∙W∙T1∙T">
+<meta name="keywords" content="博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DES算法程序设计及实现">
+<meta property="og:url" content="http://dukecheung.github.io/2018/04/11/2018-11-01-DES/index.html">
+<meta property="og:site_name" content="Duke">
+<meta property="og:description" content="算法概述DES算法共有两种功能：加密和解密。其中加密需要输入16位十六进制数的明文和密钥，解密需要输入密文和密钥。DES算法的要求输入是64位二进制数，为了方便起见，我将其改为输入16位十六进制数，转换在程序中实现。 加密过程：C=IP-1∙W∙T16∙T15∙…∙T1∙IP(M)，其中C为结果密文，M为输入明文，根据输入密钥Key进行中间的十六轮T迭代变换。 解密过程：M=IP-1∙W∙T1∙T">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.hdwallpapers.net/previews/the-morning-star-666.jpg">
+<meta property="og:updated_time" content="2018-11-01T16:09:27.354Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DES算法程序设计及实现">
+<meta name="twitter:description" content="算法概述DES算法共有两种功能：加密和解密。其中加密需要输入16位十六进制数的明文和密钥，解密需要输入密文和密钥。DES算法的要求输入是64位二进制数，为了方便起见，我将其改为输入16位十六进制数，转换在程序中实现。 加密过程：C=IP-1∙W∙T16∙T15∙…∙T1∙IP(M)，其中C为结果密文，M为输入明文，根据输入密钥Key进行中间的十六轮T迭代变换。 解密过程：M=IP-1∙W∙T1∙T">
+<meta name="twitter:image" content="https://www.hdwallpapers.net/previews/the-morning-star-666.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/avatar.jpg" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-116490199-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Duke</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg" />
+            <h2 id="name">Duke</h2>
+            <h3 id="title">Software Engineering Student</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>GuangZhou, China</span>
+            <a id="follow" target="_blank" href="https://github.com/dukecheung/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                7
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                1
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/dukecheung/hexo-theme-icarus" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/css/images/wechat.png" target="_blank" title="wechat" class=tooltip>
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/css/images/qq.jpg" target="_blank" title="qq" class=tooltip>
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-2018-11-01-DES" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="https://www.hdwallpapers.net/previews/the-morning-star-666.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            DES算法程序设计及实现
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/04/11/2018-11-01-DES/">
+            <time datetime="2018-04-11T04:38:00.000Z" itemprop="datePublished">2018-04-11</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/博客/">博客</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="算法概述"><a href="#算法概述" class="headerlink" title="算法概述"></a>算法概述</h3><p>DES算法共有两种功能：加密和解密。其中加密需要输入16位十六进制数的明文和密钥，解密需要输入密文和密钥。DES算法的要求输入是64位二进制数，为了方便起见，我将其改为输入16位十六进制数，转换在程序中实现。</p>
+<p>加密过程：C=IP<sup>-1</sup>∙W∙T<sub>16</sub>∙T<sub>15</sub>∙…∙T<sub>1</sub>∙IP(M)，其中C为结果密文，M为输入明文，根据输入密钥Key进行中间的十六轮T迭代变换。</p>
+<p>解密过程：M=IP<sup>-1</sup>∙W∙T<sub>1</sub>∙T<sub>2</sub>∙…∙T<sub>16</sub>∙IP(C)，其中M为结果明文，C为输入密文，根据输入密钥Key进行解密，需要注意的是，十六轮T迭代变换的次序与加密过程相反。<br><a id="more"></a><br>以加密为例，具体步骤如下：</p>
+<ol>
+<li><p>在算法开始，先要根据输入密钥，计算出16个子密钥。将输入密钥除去第8，16……64等奇偶校验位，进行PC-1置换，结果分为两部分，得到C<sub>0</sub>和D<sub>0</sub>两个28位数组。然后再将这两个数组进行16轮左移操作，依据LS位数表进行左移，得到结果。将每一轮的C<sub>i</sub>D<sub>i</sub>进行PC-2置换，得到第i个子密钥。</p>
+</li>
+<li><p>将输入明文M进行IP置换，根据IP置换表，将旧数据重新排列，然后将结果分为前后两部分L0和R0，各为32位，用作后续输入。</p>
+</li>
+<li><p>进入十六轮迭代。将L<sub>0</sub>和R<sub>0</sub>作为输入，进行如下变换：</p>
+<p>L<sub>i</sub>= R<sub>i-1</sub>; R<sub>i</sub>= L<sub>i-1</sub>$\oplus$f(R<sub>i-1</sub>,K<sub>i</sub>)，其中f为Feistel函数，K<sub>i</sub>为第i个子密钥，需要注意的是，若在解密过程中，K<sub>i</sub>则应为17-i个子密钥(i=1,……,17)。</p>
+</li>
+<li><p>Feistel轮函数，步骤如下：</p>
+<ul>
+<li>首先将输入的R<sub>i-1</sub>根据E扩展表进行扩展，变为48位。</li>
+<li>将第一步得到的结果与K<sub>i</sub>做48位二进制按位异或运算。</li>
+<li>将上一步结果分为8组，每组为6位，所以要循环8次。在每一轮循环中，分组第一位与第六位按二进制转为十进制，作为行数目；第二三四五位按二进制转为十进制数，作为列数目。然后在第i个S盒中找到对应的行列数，取出相应数字，然后将其转为四位二进制数，保存起来。</li>
+<li>将上一步每次循环得到的结果拼接，得到一个32位的串。</li>
+<li>将该串进行P置换，结果即为Feistel函数的最终结果。</li>
+</ul>
+</li>
+<li><p>前面我们进行了十六轮迭代，得到了L<sub>16</sub>和R<sub>16</sub>，将R<sub>16</sub>作为一个64位串的前半段，L<sub>16</sub>作为后半段，即为W置换。</p>
+</li>
+<li><p>将上一步得到的64位串根据IP<sup>-1</sup>置换表进行置换，得到的结果即是我们要求的密文。<br>在本算法中，我将64位二进制密文结果转化为16位十六进制数输出。</p>
+</li>
+</ol>
+<h3 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h3><p>Feistel结构：</p>
+<p><img src="/images/DES/feistel.jpg" alt="Feistel"></p>
+<h3 id="模块分解"><a href="#模块分解" class="headerlink" title="模块分解"></a>模块分解</h3><ol>
+<li><p>初始置换IP：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">IP_Permutation</span><span class="params">(<span class="keyword">bool</span> *l, <span class="keyword">bool</span> *r, <span class="keyword">bool</span> *m)</span></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> temp[<span class="number">64</span>];<span class="comment">//store the result after permutating</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">64</span>;i++)&#123;</span><br><span class="line">        temp[i] = m[IP_Table[i]<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">64</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">32</span>)&#123;</span><br><span class="line">            l[i] = temp[i];<span class="comment">//store the left part</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            r[i<span class="number">-32</span>] = temp[i];<span class="comment">//store the right part</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>16轮迭代T：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Iteration_En</span><span class="params">(<span class="keyword">bool</span> *l, <span class="keyword">bool</span> *r, <span class="keyword">bool</span> *out)</span><span class="comment">//encrypt</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Iteration_De</span><span class="params">(<span class="keyword">bool</span> *l, <span class="keyword">bool</span> *r, <span class="keyword">bool</span> *out)</span><span class="comment">//decrypt</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其中16轮循环，每次进行Feistel和异或运算，以函数方式调用：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Feistel</span><span class="params">(<span class="keyword">bool</span> *r, <span class="keyword">bool</span> *k, <span class="keyword">bool</span> *o)</span></span>&#123;<span class="comment">//feistel function</span></span><br><span class="line">    <span class="keyword">bool</span> out[<span class="number">48</span>];</span><br><span class="line">    E_Permutation(r, out);<span class="comment">//expand to 48 bits</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">48</span>;i++)&#123;</span><br><span class="line">        out[i] ^= k[i];<span class="comment">//XOR operation</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">bool</span> s[<span class="number">32</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">8</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> h = (out[i*<span class="number">6</span>]&lt;&lt;<span class="number">1</span>)+out[i*<span class="number">6</span>+<span class="number">5</span>];</span><br><span class="line">        <span class="keyword">int</span> l = (out[i*<span class="number">6</span>+<span class="number">1</span>]&lt;&lt;<span class="number">3</span>)+(out[i*<span class="number">6</span>+<span class="number">2</span>]&lt;&lt;<span class="number">2</span>)+(out[i*<span class="number">6</span>+<span class="number">3</span>]&lt;&lt;<span class="number">1</span>)+out[i*<span class="number">6</span>+<span class="number">4</span>];</span><br><span class="line">        <span class="keyword">int</span> data = S_Box[i][h<span class="number">-1</span>][l<span class="number">-1</span>];<span class="comment">//select the S Box data</span></span><br><span class="line">        s[i*<span class="number">8</span>] = (data&amp;<span class="number">8</span>)&gt;&gt;<span class="number">3</span>;<span class="comment">//convert decimal number to binary number</span></span><br><span class="line">        s[i*<span class="number">8</span>+<span class="number">1</span>] = (data&amp;<span class="number">4</span>)&gt;&gt;<span class="number">2</span>;</span><br><span class="line">        s[i*<span class="number">8</span>+<span class="number">2</span>] = (data&amp;<span class="number">2</span>)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        s[i*<span class="number">8</span>+<span class="number">3</span>] = data&amp;<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    P_Permutation(s, o);<span class="comment">//put the result in o</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">XOR</span><span class="params">(<span class="keyword">bool</span> *r, <span class="keyword">bool</span> *l, <span class="keyword">bool</span> *f)</span></span>&#123;<span class="comment">//XOR operation</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">32</span>;i++)&#123;</span><br><span class="line">        r[i] = l[i]^f[i];<span class="comment">//put the result in r</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>交换置换W：</li>
+</ol>
+<p>此部分我放在迭代运算的最后：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//out = R16L16</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">64</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &lt; <span class="number">32</span>)&#123;</span><br><span class="line">        out[i] = r[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        out[i] = l[i<span class="number">-32</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="4">
+<li><p>逆置换IP：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">IP_Inverse</span><span class="params">(<span class="keyword">bool</span> *in)</span></span>&#123;<span class="comment">//IP inverse permutation</span></span><br><span class="line">    <span class="keyword">bool</span> temp[<span class="number">64</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">64</span>;i++)&#123;</span><br><span class="line">        temp[i] = in[IPR_Table[i]<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">64</span>;i++)&#123;</span><br><span class="line">        in[i] = temp[i];<span class="comment">//update the data</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输出64位，我将其转换为16位十六进制数进行输出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Output</span><span class="params">(<span class="keyword">bool</span> *s)</span></span>&#123;<span class="comment">//convert the binary number to hexadecimal number</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">16</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> data = s[i*<span class="number">4</span>];</span><br><span class="line">        data = data*<span class="number">2</span>+s[i*<span class="number">4</span>+<span class="number">1</span>];</span><br><span class="line">        data = data*<span class="number">2</span>+s[i*<span class="number">4</span>+<span class="number">2</span>];</span><br><span class="line">        data = data*<span class="number">2</span>+s[i*<span class="number">4</span>+<span class="number">3</span>];</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%X"</span>,data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>密钥调度：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setSubkey</span><span class="params">(<span class="keyword">bool</span> *key)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>首先将64位输入密钥转换为56位，然后进行PC-1置换，之后在循环中进行移位与PC-2置换操作：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PC1_Permutation(k,c,d);<span class="comment">//get C0 and R0</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">16</span>;i++)&#123;</span><br><span class="line">    LS(c, LS_Table[i<span class="number">-1</span>]);<span class="comment">//C(i) = LS(i)(C(i-1))</span></span><br><span class="line">    LS(d, LS_Table[i<span class="number">-1</span>]);</span><br><span class="line">    PC2_Permutation(c, d, i);<span class="comment">//set the subKey</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>LS为根据输入次数，进行左移，以下展示PC-2置换函数：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PC2_Permutation</span><span class="params">(<span class="keyword">bool</span> *c, <span class="keyword">bool</span> *d, <span class="keyword">int</span> times)</span></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> temp[<span class="number">56</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">56</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i &lt; <span class="number">28</span>)&#123;</span><br><span class="line">            temp[i] = c[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            temp[i] = d[i<span class="number">-28</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">48</span>;i++)&#123;</span><br><span class="line">        subKey[times][i] = temp[PC2_Table[i]<span class="number">-1</span>];<span class="comment">//put the subKey in the array</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>算法并没有需要特别的数据结构，我主要是采用了Bool数组：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> M[<span class="number">64</span>];<span class="comment">//ciphertext or plaintext</span></span><br><span class="line"><span class="keyword">bool</span> L[<span class="number">32</span>];<span class="comment">//Left part of M</span></span><br><span class="line"><span class="keyword">bool</span> R[<span class="number">32</span>];<span class="comment">//Right part of M</span></span><br><span class="line"><span class="keyword">bool</span> K[<span class="number">64</span>];<span class="comment">//Key</span></span><br><span class="line"><span class="keyword">bool</span> subKey[<span class="number">16</span>][<span class="number">48</span>];<span class="comment">//subKey</span></span><br></pre></td></tr></table></figure></p>
+<p>此外，还有几个Int数组用来存各种转换表，不做赘述。</p>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><h4 id="Test1"><a href="#Test1" class="headerlink" title="Test1:"></a>Test1:</h4><p>明文：A38B77FD99ECF823<br><br>密钥：37BACAE0D8BF0254<br><br>加密后密文为：6D0959FE56DCF42E</p>
+<p><img src="/images/DES/test1.jpg" alt="encrypt"></p>
+<p>解密：结果为A38B77FD99ECF823，符合要求。</p>
+<p><img src="/images/DES/test2.jpg" alt="decrypt"></p>
+<h4 id="Test2"><a href="#Test2" class="headerlink" title="Test2"></a>Test2</h4><p>明文：2018103120181101<br><br>密钥：7FA8920C8ABEDD87<br><br>加密后密文为：27AC0F3220E42230</p>
+<p><img src="/images/DES/test3.jpg" alt="encrypt"></p>
+<p>解密：结果为2018103120181101，符合要求。</p>
+<p><img src="/images/DES/test4.jpg" alt="decrypt"></p>
+<h4 id="代码戳传送门哟，有任何问题也欢迎与我交流。"><a href="#代码戳传送门哟，有任何问题也欢迎与我交流。" class="headerlink" title="代码戳传送门哟，有任何问题也欢迎与我交流。"></a>代码戳<a href="https://github.com/DukeCheung/Algorithms/blob/master/DES.cpp" target="_blank" rel="noopener">传送门</a>哟，有任何问题也欢迎与我交流。</h4>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://dukecheung.github.io/2018/04/11/2018-11-01-DES/" data-id="cjnysdiol000370upq53z3ixl" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/04/11/2018-01-11/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    MIPS汇编语言实现冒泡排序
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Unity 3D 牧师与魔鬼场景改进版</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/05/Unity-3D-血条制作/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/starry-night-over-cape-cod-1126.jpg)" alt="Unity 3D 血条制作" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/06/05/Unity-3D-血条制作/" class="title">Unity 3D 血条制作</a></p>
+                            <p class="item-date"><time datetime="2018-06-05T03:09:46.852Z" itemprop="datePublished">2018-06-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/11/Unity-3D-巡逻兵/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/hot-and-cold-651.jpg)" alt="Unity 3D 巡逻兵" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/05/11/Unity-3D-巡逻兵/" class="title">Unity 3D 巡逻兵</a></p>
+                            <p class="item-date"><time datetime="2018-05-11T12:00:00.000Z" itemprop="datePublished">2018-05-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/lake-ohau-new-zealand-1106.jpg)" alt="Unity 3D 鼠标打飞碟之改进版" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/3D-Game/">3D Game</a></p>
+                            <p class="item-title"><a href="/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" class="title">Unity 3D 鼠标打飞碟之改进版</a></p>
+                            <p class="item-date"><time datetime="2018-04-24T12:17:00.000Z" itemprop="datePublished">2018-04-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/11/2018-01-11/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/big-green-leaf-1120.jpg)" alt="MIPS汇编语言实现冒泡排序" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/汇编语言/">汇编语言</a></p>
+                            <p class="item-title"><a href="/2018/04/11/2018-01-11/" class="title">MIPS汇编语言实现冒泡排序</a></p>
+                            <p class="item-date"><time datetime="2018-04-11T04:38:00.000Z" itemprop="datePublished">2018-04-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/11/2018-11-01-DES/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/the-morning-star-666.jpg)" alt="DES算法程序设计及实现" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/加密算法/">加密算法</a></p>
+                            <p class="item-title"><a href="/2018/04/11/2018-11-01-DES/" class="title">DES算法程序设计及实现</a></p>
+                            <p class="item-date"><time datetime="2018-04-11T04:38:00.000Z" itemprop="datePublished">2018-04-11</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/3D-Game/">3D Game</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/汇编语言/">汇编语言</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客/">博客</a><span class="tag-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 ZhangXing<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
