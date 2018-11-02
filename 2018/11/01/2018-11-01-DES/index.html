@@ -14,7 +14,7 @@
 <meta property="og:description" content="算法概述DES算法共有两种功能：加密和解密。其中加密需要输入16位十六进制数的明文和密钥，解密需要输入密文和密钥。DES算法的要求输入是64位二进制数，为了方便起见，我将其改为输入16位十六进制数，转换在程序中实现。 加密过程：C=IP-1∙W∙T16∙T15∙…∙T1∙IP(M)，其中C为结果密文，M为输入明文，根据输入密钥Key进行中间的十六轮T迭代变换。 解密过程：M=IP-1∙W∙T1∙T">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.hdwallpapers.net/previews/the-morning-star-666.jpg">
-<meta property="og:updated_time" content="2018-11-01T16:20:39.140Z">
+<meta property="og:updated_time" content="2018-11-02T02:48:17.952Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DES算法程序设计及实现">
 <meta name="twitter:description" content="算法概述DES算法共有两种功能：加密和解密。其中加密需要输入16位十六进制数的明文和密钥，解密需要输入密文和密钥。DES算法的要求输入是64位二进制数，为了方便起见，我将其改为输入16位十六进制数，转换在程序中实现。 加密过程：C=IP-1∙W∙T16∙T15∙…∙T1∙IP(M)，其中C为结果密文，M为输入明文，根据输入密钥Key进行中间的十六轮T迭代变换。 解密过程：M=IP-1∙W∙T1∙T">
@@ -269,7 +269,7 @@ ga('send', 'pageview');
 <ol>
 <li><p>在算法开始，先要根据输入密钥，计算出16个子密钥。将输入密钥除去第8，16……64等奇偶校验位，进行PC-1置换，结果分为两部分，得到C<sub>0</sub>和D<sub>0</sub>两个28位数组。然后再将这两个数组进行16轮左移操作，依据LS位数表进行左移，得到结果。将每一轮的C<sub>i</sub>D<sub>i</sub>进行PC-2置换，得到第i个子密钥。</p>
 </li>
-<li><p>将输入明文M进行IP置换，根据IP置换表，将旧数据重新排列，然后将结果分为前后两部分L0和R0，各为32位，用作后续输入。</p>
+<li><p>将输入明文M进行IP置换，根据IP置换表，将旧数据重新排列，然后将结果分为前后两部分L<sub>0</sub>和R<sub>0</sub>，各为32位，用作后续输入。</p>
 </li>
 <li><p>进入十六轮迭代。将L<sub>0</sub>和R<sub>0</sub>作为输入，进行如下变换：</p>
 <p>L<sub>i</sub>= R<sub>i-1</sub>; R<sub>i</sub>= L<sub>i-1</sub>$\oplus$f(R<sub>i-1</sub>,K<sub>i</sub>)，其中f为Feistel函数，K<sub>i</sub>为第i个子密钥，需要注意的是，若在解密过程中，K<sub>i</sub>则应为17-i个子密钥(i=1,……,17)。</p>
@@ -336,7 +336,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2018/11/01/2018-11-01-DES/" data-id="cjnzabrao0002i0uptq41x0ou" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2018/11/01/2018-11-01-DES/" data-id="cjnzfb6u100010cupjnjk7mg1" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
