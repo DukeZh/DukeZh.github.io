@@ -165,7 +165,7 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                11
+                12
                 <span>文章</span>
             </div>
             <div class="article-info-block">
@@ -206,6 +206,167 @@ ga('send', 'pageview');
 
             
             <section id="main">
+    <article id="post-2019-04-08-HW6" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<a href="/2019/04/08/2019-04-08-HW6/" itemprop="url">
+            <img src="https://www.hdwallpapers.net/previews/lofoten-islands-norway-832.jpg" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/04/08/2019-04-08-HW6/">Homework 4</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/04/08/2019-04-08-HW6/">
+            <time datetime="2019-04-08T12:20:30.000Z" itemprop="datePublished">2019-04-08</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/系统分析与设计/">系统分析与设计</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/博客/">博客</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="一、简答题"><a href="#一、简答题" class="headerlink" title="一、简答题"></a>一、简答题</h3><ol>
+<li><p>用例的概念。</p>
+<p><em>Answer</em> ：</p>
+</li>
+<li><p>用例和场景的关系？什么是主场景或happy path？</p>
+</li>
+<li>用例有哪些形式？</li>
+<li>对于复杂业务，为什么编制完整用例非常难？</li>
+<li>什么是用例图？</li>
+<li>用例图的基本符号与元素？</li>
+<li>用例图的画法与步骤。</li>
+<li>用例图给利益相关人与开发者的价值有哪些？</li>
+</ol>
+<h3 id="二、建模练习题"><a href="#二、建模练习题" class="headerlink" title="二、建模练习题"></a>二、建模练习题</h3><ol>
+<li>为什么相似系统的用例图是相似的？</li>
+<li>如果是订旅馆业务，请对比 Asg_RH 用例图，简述如何利用不同时代、不同地区产品的用例图，展现、突出创新业务和技术。</li>
+<li>如何利用用例图定位创新思路（业务创新、或技术创新、或商业模式创新）在系统中的作用。</li>
+<li>请使用 SCRUM 方法，选择一个用例图，编制某定旅馆开发的需求（backlog）开发计划表。</li>
+<li>根据任务4，参考 <a href="https://www.ibm.com/developerworks/cn/rational/edge/09/mar09/collaris_dekker/index.html" target="_blank" rel="noopener">使用用例点估算软件成本</a>，给出项目用例点的估算。</li>
+</ol>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://dukecheung.github.io/2019/04/08/2019-04-08-HW6/" data-id="cjuagmlcv0006r8upvx0fkflc" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://dukecheung.github.io/2019/04/08/2019-04-08-HW6/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://dukecheung.github.io/2019/04/08/2019-04-08-HW6/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-2019-04-03" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -271,7 +432,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2019/04/03/2019-04-03/" data-id="cju1eta8k000dfcupq6zt465k" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2019/04/03/2019-04-03/" data-id="cjuagmld3000ar8upt0bjarci" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -421,7 +582,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2019/03/23/2019-03-23-HW3/" data-id="cju1eta8d0009fcupq5m0bbie" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2019/03/23/2019-03-23-HW3/" data-id="cjuagmlcr0005r8upytfmqxu7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -570,7 +731,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2019/03/15/2019-03-15-HW2/" data-id="cju1eta8a0008fcupl5xxs6e1" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2019/03/15/2019-03-15-HW2/" data-id="cjuagmlav0000r8upu1blw0ng" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -715,7 +876,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2019/03/11/2019-03-11-HW1/" data-id="cju1eta850006fcupa96ecsz4" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2019/03/11/2019-03-11-HW1/" data-id="cjuagmlmb000lr8up1w3bi6ih" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -860,7 +1021,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2018/11/01/2018-11-01-DES/" data-id="cju1eta7v0002fcupv779mo8o" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2018/11/01/2018-11-01-DES/" data-id="cjuagmlmj000pr8up733o67n2" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1008,7 +1169,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2018/06/05/Unity-3D-血条制作/" data-id="cju1eta94000qfcupnecppvku" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2018/06/05/Unity-3D-血条制作/" data-id="cjuagmlnq0010r8up7atdkha0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1154,7 +1315,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2018/05/11/Unity-3D-巡逻兵/" data-id="cju1eta8x000kfcupfdk4j5an" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2018/05/11/Unity-3D-巡逻兵/" data-id="cjuagmlnu0011r8upn1kp0cac" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1297,7 +1458,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" data-id="cju1eta97000sfcup53y5wxtl" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2018/04/24/Unity-3D-鼠标打飞碟之改进版/" data-id="cjuagmlnu0013r8upm125ukmc" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1440,7 +1601,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2018/04/11/2018-01-11/" data-id="cju1eta7g0000fcupfhfxg9qy" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2018/04/11/2018-01-11/" data-id="cjuagmlcz0008r8up1p81zll4" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1518,149 +1679,6 @@ ga('send', 'pageview');
 
 
 
-    <article id="post-Unity 3D牧师与魔鬼场景改进版" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            
-	
-		<a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" itemprop="url">
-            <img src="https://www.hdwallpapers.net/previews/peyto-lake-canada-1152.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/">Unity 3D 牧师与魔鬼场景改进版</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/">
-            <time datetime="2018-04-10T14:17:00.000Z" itemprop="datePublished">2018-04-10</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/3D-Game/">3D Game</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/博客/">博客</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><h3 id="场景改进"><a href="#场景改进" class="headerlink" title="场景改进"></a>场景改进</h3><p>效果图：</p></p>
-            <p class="article-more-link">
-                <a href="/2018/04/10/Unity 3D牧师与魔鬼场景改进版/#more">查看更多</a>
-            </p>
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://dukecheung.github.io/2018/04/10/Unity 3D牧师与魔鬼场景改进版/" data-id="cju1eta90000mfcuptwf2xl5d" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="http://dukecheung.github.io/2018/04/10/Unity 3D牧师与魔鬼场景改进版/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://dukecheung.github.io/2018/04/10/Unity 3D牧师与魔鬼场景改进版/">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
     </nav>
@@ -1674,6 +1692,25 @@ ga('send', 'pageview');
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/04/08/2019-04-08-HW6/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.hdwallpapers.net/previews/lofoten-islands-norway-832.jpg)" alt="Homework 4" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/系统分析与设计/">系统分析与设计</a></p>
+                            <p class="item-title"><a href="/2019/04/08/2019-04-08-HW6/" class="title">Homework 4</a></p>
+                            <p class="item-date"><time datetime="2019-04-08T12:20:30.000Z" itemprop="datePublished">2019-04-08</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -1751,25 +1788,6 @@ ga('send', 'pageview');
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2018/11/01/2018-11-01-DES/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://www.hdwallpapers.net/previews/the-morning-star-666.jpg)" alt="DES算法程序设计及实现" class="thumbnail-image"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/加密算法/">加密算法</a></p>
-                            <p class="item-title"><a href="/2018/11/01/2018-11-01-DES/" class="title">DES算法程序设计及实现</a></p>
-                            <p class="item-date"><time datetime="2018-11-01T15:38:00.000Z" itemprop="datePublished">2018-11-01</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1779,7 +1797,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/3D-Game/">3D Game</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/汇编语言/">汇编语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统分析与设计/">系统分析与设计</a><span class="category-list-count">3</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/3D-Game/">3D Game</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/汇编语言/">汇编语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统分析与设计/">系统分析与设计</a><span class="category-list-count">4</span></li></ul>
         </div>
     </div>
 
@@ -1788,7 +1806,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1797,7 +1815,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客/">博客</a><span class="tag-list-count">11</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客/">博客</a><span class="tag-list-count">12</span></li></ul>
         </div>
     </div>
 
