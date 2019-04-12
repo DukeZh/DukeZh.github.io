@@ -14,7 +14,7 @@
 <meta property="og:description" content="一、简答题 用例的概念？">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.hdwallpapers.net/previews/lofoten-islands-norway-832.jpg">
-<meta property="og:updated_time" content="2019-04-10T00:15:18.182Z">
+<meta property="og:updated_time" content="2019-04-12T04:58:23.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Homework 6">
 <meta name="twitter:description" content="一、简答题 用例的概念？">
@@ -266,29 +266,95 @@ ga('send', 'pageview');
             <h3 id="一、简答题"><a href="#一、简答题" class="headerlink" title="一、简答题"></a>一、简答题</h3><ol>
 <li><p>用例的概念？</p>
 <a id="more"></a>
-<p><em>Answer</em> ：</p>
+<p><em>Answer</em> ：用例是描述参与者为了某个目的使用系统的一系列相关成功和失败场景的集合。用例是文本而不是图表。</p>
 </li>
 <li><p>用例和场景的关系？什么是主场景或happy path？</p>
+<p><em>Answer</em>：用例是场景的集合，场景是用例的实例。Happy Path 是一种默认的场景，没有异常和错误条件，是一个”成功“场景。</p>
 </li>
 <li><p>用例有哪些形式？</p>
+<p><em>Answer</em>：有三种主要形式：</p>
+<ol>
+<li>Brief：简单的一段式描述，一般是主要的成功场景。在早期需求分析阶段，可以快速了解主题和范围。</li>
+<li>Casual：非正式段落格式，多个段落覆盖多种场景。</li>
+<li>Fully：详细描述所有步骤和段落，并且包含其他支持部分（如预设条件等）。在第一次需求研讨会期间，详细编写一些具有架构意义和高价值的用例。</li>
+</ol>
 </li>
 <li><p>对于复杂业务，为什么编制完整用例非常难？</p>
+<p><em>Answer</em>：因为复杂业务场景较多，较为复杂。在最初的考虑中，很难将所有的业务和需求考虑完全，并且这些业务在后续还有可能发生改变，所以编制完整用例非常困难。</p>
 </li>
 <li><p>什么是用例图？</p>
+<p><em>Answer</em>：用例图表示了用户和系统的交互，它是由参与者、用例、系统边界以及它们之间的关系构成的用于描述系统功能的视图。</p>
 </li>
 <li><p>用例图的基本符号与元素？</p>
+<p><em>Answer</em>：用例图的元素包括参与者（Actor）、用例（Use Case）、系统边界以及它们之间的关系组成。</p>
+<p><strong>Actor</strong>：系统的主要参与者，指与系统交互的角色。可以是人、计算机系统、组织等。用以下符号表示：</p>
+<p><img src="/images/actor.jpg" alt="Actor"></p>
+<p><strong>Use Case</strong>：用例是描述参与者为了某个目的使用系统的一系列相关成功和失败场景的集合。使用如下符号表示：</p>
+<p><img src="/images/usecase.jpg" alt="Use Case"></p>
+<p><strong>系统边界</strong>：系统边界是用于表示正在建模的系统的边界。用如下符号表示：</p>
+<p><img src="/images/system.jpg" alt="系统边界"></p>
+<p><strong>关系</strong>：表示参与者与系统之间的交互或者用例之间的关联关系。使用箭头表示：</p>
+<p><img src="/images/relationship.jpg" alt="关系"></p>
 </li>
 <li><p>用例图的画法与步骤。</p>
+<p><em>Answer</em>：</p>
+<ol>
+<li>确定研讨的系统。<ul>
+<li>使用用例图System框表示一个带研究的系统。</li>
+<li>正确命名系统或子系统。</li>
+<li>不要讲研究的系统名起得太泛，以免出现业务空泛的问题。</li>
+</ul>
 </li>
-<li><p>用例图给利益相关人与开发者的价值有哪些？</p>
+<li>识别Actor。<ul>
+<li>识别系统的主要参与者。</li>
+<li>识别系统依赖的外部系统。</li>
+</ul>
+</li>
+<li>识别用例。<ul>
+<li>识别用户级别用例。</li>
+<li>识别子功能级别的用例。</li>
+</ul>
+</li>
+<li>建立参与者和用例之间的关联。<ul>
+<li>使用无方向连线，表示两者之间是双向交互的协议。</li>
+</ul>
 </li>
 </ol>
-<h3 id="二、建模练习题"><a href="#二、建模练习题" class="headerlink" title="二、建模练习题"></a>二、建模练习题</h3><ol>
-<li>为什么相似系统的用例图是相似的？</li>
-<li>如果是订旅馆业务，请对比 Asg_RH 用例图，简述如何利用不同时代、不同地区产品的用例图，展现、突出创新业务和技术。</li>
-<li>如何利用用例图定位创新思路（业务创新、或技术创新、或商业模式创新）在系统中的作用。</li>
-<li>请使用 SCRUM 方法，选择一个用例图，编制某定旅馆开发的需求（backlog）开发计划表。</li>
-<li>根据任务4，参考 <a href="https://www.ibm.com/developerworks/cn/rational/edge/09/mar09/collaris_dekker/index.html" target="_blank" rel="noopener">使用用例点估算软件成本</a>，给出项目用例点的估算。</li>
+</li>
+<li><p>用例图给利益相关人与开发者的价值有哪些？</p>
+<p><em>Answer</em>：</p>
+<ul>
+<li>帮助开发者明确系统的业务范围，服务对象以及外部依赖的系统，也可作为开发的指导，从而评估工作量，合理安排开发周期。</li>
+<li>可以帮助利益相关人明确地看清楚系统的功能以及使用关联。</li>
+</ul>
+</li>
+</ol>
+<h3 id="二、建模练习题"><a href="#二、建模练习题" class="headerlink" title="二、建模练习题"></a>二、建模练习题</h3><p>选择2-3个你熟悉的类似业务的在线服务系统（或移动 APP），如定旅馆（携程、去哪儿等）、定电影票、背单词APP等，分别绘制它们用例图。并满足以下要求：</p>
+<ul>
+<li>请使用用户的视角，描述用户目标或系统提供的服务</li>
+<li>粒度达到子用例级别，并用 include 和 exclude 关联它们</li>
+<li>请用色彩标注出你认为创新（区别于竞争对手的）用例或子用例</li>
+<li>尽可能识别外部系统和服务</li>
+</ul>
+<p><strong>扇贝单词</strong>：</p>
+<p><img src="/images/hw6_image1.jpg" alt="shanbay"></p>
+<p><strong>百词斩</strong></p>
+<p><img src="/images/hw6_image2.jpg" alt="baicizhan"></p>
+<ol>
+<li><p>为什么相似系统的用例图是相似的？</p>
+<p><em>Answer</em>：因为他们的参与者与用例是相似的，用户的目标也大多相同，用例与用例、用户与用例之间的关系也类似，所以用例图也是类似的。</p>
+</li>
+<li><p>如何利用用例图定位创新思路（业务创新、或技术创新、或商业模式创新）在系统中的作用。</p>
+<p><em>Answer</em>：用例图能够帮助我们明白用户的需求，然后可以通过对原本用例图的分析，在适当的地方进行改进，例如扇贝单词中的牛津词典功能，相比一般的APP就详细和专业了许多，可以在这个地方插入支付功能，达到一个商业模式创新的目的。</p>
+</li>
+<li><p>请使用 SCRUM 方法，选择一个用例图，编制某定旅馆开发的需求（backlog）开发计划表。</p>
+<p><em>Answer</em>：以携程网为例：</p>
+<p>| ID   | Title    | Est  | Imp  | How to demo                                                  | Note                   |<br>| —- | ——– | —- | —- | ———————————————————— | ———————- |<br>| 1    | 注册     | 3    | 10   | 输入手机号，发送验证码，编辑个人信息，设置密码等。           | 需要发送短信           |<br>| 2    | 登陆     | 3    | 10   | 输入手机号和密码，也可使用短信验证码登陆。                   | 可能需要短信           |<br>| 3    | 搜索酒店 | 10   | 30   | 输入酒店名或者输入目的地                                     | GPS支持                |<br>| 4    | 排序     | 3    | 10   | 根据好评度或者价格等不同标准排序                             |                        |<br>| 5    | 酒店详情 | 5    | 20   | 点击酒店，可查看具体详情，评价等等。                         |                        |<br>| 6    | 预定     | 20   | 40   | 点击预定，输入入住用户信息，时间等等，然后提交订单支付。     | 需要支付系统支持       |<br>| 7    | 查看订单 | 5    | 20   | 点击订单，可查看订单信息，如酒店名称，入住时间，入住用户等等。 |                        |<br>| 8    | 取消订单 | 10   | 20   | 若未入住，点击即可取消订单。                                 | 需要将费用退回支付系统 |</p>
+</li>
+<li><p>根据任务3，参考 <a href="https://www.ibm.com/developerworks/cn/rational/edge/09/mar09/collaris_dekker/index.html" target="_blank" rel="noopener">使用用例点估算软件成本</a>，给出项目用例点的估算。</p>
+<p><em>Answer</em>：</p>
+<p>| 用例     | #事务 | #计算 | 原因    | UC权重 |<br>| ——– | —– | —– | ——- | —— |<br>| 注册     | 4     | 2     |         | 5      |<br>| 登陆     | 3     | 2     |         | 5      |<br>| 搜索酒店 | 2     | 1     | 地图API | 10     |<br>| 排序     | 3     | 2     |         | 5      |<br>| 酒店详情 | 5     | 5     |         | 10     |<br>| 预定     | 6     | 3     | 框架    | 15     |<br>| 查看订单 | 2     | 1     |         | 10     |<br>| 取消订单 | 4     | 2     |         | 10     |</p>
+</li>
 </ol>
 
         
@@ -300,7 +366,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2019/04/08/2019-04-08-HW6/" data-id="cjuagptjy000fjkup13hycb1z" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2019/04/08/2019-04-08-HW6/" data-id="cjudlqg8p000fkgupptfetulb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
