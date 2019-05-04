@@ -5,19 +5,19 @@
     
     <title>Homework 9 | Duke</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="简答题">
+    <meta name="description" content="绘图题1、使用类图，分别对 Asg_RH 文档中 Make Reservation 用例以及 Payment 用例开展领域建模。然后，根据上述模型，给出建议的数据表以及主要字段，特别是主键和外键">
 <meta name="keywords" content="博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Homework 9">
 <meta property="og:url" content="http://dukecheung.github.io/2019/04/30/2019-04-30-HW9/index.html">
 <meta property="og:site_name" content="Duke">
-<meta property="og:description" content="简答题">
+<meta property="og:description" content="绘图题1、使用类图，分别对 Asg_RH 文档中 Make Reservation 用例以及 Payment 用例开展领域建模。然后，根据上述模型，给出建议的数据表以及主要字段，特别是主键和外键">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.hdwallpapers.net/previews/volcanic-lightning-743.jpg">
-<meta property="og:updated_time" content="2019-04-29T14:17:51.559Z">
+<meta property="og:updated_time" content="2019-05-04T05:07:36.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Homework 9">
-<meta name="twitter:description" content="简答题">
+<meta name="twitter:description" content="绘图题1、使用类图，分别对 Asg_RH 文档中 Make Reservation 用例以及 Payment 用例开展领域建模。然后，根据上述模型，给出建议的数据表以及主要字段，特别是主键和外键">
 <meta name="twitter:image" content="https://www.hdwallpapers.net/previews/volcanic-lightning-743.jpg">
     
 
@@ -263,7 +263,40 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h3 id="简答题"><a href="#简答题" class="headerlink" title="简答题"></a>简答题</h3>
+            <h3 id="绘图题"><a href="#绘图题" class="headerlink" title="绘图题"></a>绘图题</h3><p>1、使用类图，分别对 Asg_RH 文档中 Make Reservation 用例以及 Payment 用例开展领域建模。然后，根据上述模型，给出建议的数据表以及主要字段，特别是主键和外键</p>
+<a id="more"></a>
+<ul>
+<li>注意事项：<ul>
+<li>对象必须是名词、特别是技术名词、报表、描述类的处理；</li>
+<li>关联必须有多重性、部分有名称与导航方向</li>
+<li>属性要注意计算字段</li>
+</ul>
+</li>
+<li>数据建模，为了简化描述仅需要给出表清单，例如：<ul>
+<li>Hotel（ID/Key，Name，LoctionID/Fkey，Address…..）</li>
+</ul>
+</li>
+<li>Make Reservation</li>
+</ul>
+<p><img src="/images/hw9_img1.PNG" alt="领域模型"></p>
+<p>Location(ID/Key, Name)</p>
+<p>Hotel(ID/Key, Name, LoctionID/Fkey, Address…..）</p>
+<p>Room(ID/Key, Type, Price, IsAvailable)</p>
+<p>Customer(ID/Key, Name, EmailAddress)</p>
+<p>Reservation (ID/Key, CustomerID/FKey, HotelID/FKey, Date, Time, CheckInDate, CheckOutDate, AdultNumber, ChildNumber, ChildAge)</p>
+<ul>
+<li>Payment</li>
+</ul>
+<p><img src="/images/hw9_img2.PNG" alt="领域模型"></p>
+<p>Payment (ID/Key, ReservationID/FKey, Date, Time)</p>
+<p>CreditCardDetail (ID/Key, CustomerID/FKey, PaymentID/FKey, CardNumber, SecurityCode, ExpiryDate)</p>
+<p>2、使用 UML State Model，对每个订单对象生命周期建模</p>
+<ul>
+<li>建模对象： 参考 Asg_RH 文档， 对 Reservation/Order 对象建模。</li>
+<li>建模要求： 参考练习不能提供足够信息帮助你对订单对象建模，请参考现在定旅馆的旅游网站，尽可能分析围绕订单发生的各种情况，直到订单通过销售事件（柜台销售）结束订单。</li>
+</ul>
+<p><img src="/images/hw9_img3.PNG" alt="活动图"></p>
+
         
         </div>
         <footer class="article-footer">
@@ -273,7 +306,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://dukecheung.github.io/2019/04/30/2019-04-30-HW9/" data-id="cjv8x0smh000m1guplke5eqlb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://dukecheung.github.io/2019/04/30/2019-04-30-HW9/" data-id="cjv91qlo7000md0upbqje8f6e" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
